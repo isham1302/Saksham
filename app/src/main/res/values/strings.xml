@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">Saksham</string>
+    <string name="invalid_name">"Please Enter Valid Name "</string>
+    <string name="invalid_number">Please Enter Valid Phone Number</string>
+    <string name="invalid_email">Please Enter Valid Email Address</string>
+    <string name="invalid_Password">Please Enter atleast 6 Character</string>
+    <string name="invalid_date">Please Enter the Date of Birth </string>
+    <string name="invalid_cpass">Password and Confirm Password not matching</string>
+    <string-array name="language">
+        <item>Other</item>
+        <item>French</item>
+        <item>Spanish</item>
+        <item>German</item>
+        <item>Sanskrit</item>
+        <item>Marathi</item>
+        <item>Punjabi</item>
+        <item>Bengali</item>
+        <item>Odia</item>
+        <item>Tamil</item>
+        <item>Telugu</item>
+        <item>Kannada</item>
+        <item>Malyalam</item>
+    </string-array>
+    <string-array name="workProfile">
+        <item></item>
+        <item>Job</item>
+        <item>Business</item>
+        <item>HouseWife</item>
+    </string-array>
+    <string-array name="school">
+        <item></item>
+        <item>Science-A</item>
+        <item>Science-B</item>
+        <item>Commers</item>
+        <item>Arts</item>
+    </string-array>
+    <string-array name="undergradutation">
+        <item></item>
+        <item>BBA</item>
+        <item>BSC</item>
+        <item>BCA</item>
+        <item>BCOM</item>
+        <item>BTECH</item>
+    </string-array>
+    <string-array name="postgradutaion">
+        <item></item>
+        <item>MBA</item>
+        <item>MSC</item>
+        <item>MCOM</item>
+        <item>MTECH</item>
+    </string-array>
+
+</resources>

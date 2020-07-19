@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Home"
+    android:id="@+id/relative_layout">
+    <include layout="@layout/home_toolbar"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="50dp">
+
+        <androidx.viewpager.widget.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:foregroundGravity="center"
+            android:layout_centerInParent="true"
+            android:overScrollMode="never"
+            android:clipToPadding="false"
+            android:id="@+id/viewPager">
+
+        </androidx.viewpager.widget.ViewPager>
+    </LinearLayout>
+
+    <Button
+            android:layout_width="155dp"
+            android:layout_height="45dp"
+            android:text="Apply Now"
+            android:textColor="#ffffff"
+            android:background="#03A9F4"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="60dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/btn_apply"/>
+
+</RelativeLayout>

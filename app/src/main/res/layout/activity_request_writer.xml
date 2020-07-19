@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RequestWriter">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <include layout="@layout/request_writer_toolbar"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="First Name:"
+            android:layout_marginLeft="10dp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="20dp" />
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="40dp"
+            android:drawableLeft="@drawable/ic_baseline_account_circle_24"
+            android:drawablePadding="10dp"
+            android:hint="Enter your first name"
+            android:id="@+id/fname"
+            android:inputType="text"
+            android:textColorHint="@android:color/black"
+            android:textSize="18sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginLeft="10dp"
+            android:text="Last Name:"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="15dp" />
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="40dp"
+            android:drawableLeft="@drawable/ic_baseline_account_circle_24"
+            android:drawablePadding="10dp"
+            android:hint="Enter your last name"
+            android:id="@+id/lname"
+            android:inputType="text"
+            android:textColorHint="@android:color/black"
+            android:textSize="18sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginLeft="10dp"
+            android:text="Exam Name:"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="15dp" />
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="40dp"
+            android:drawableLeft="@drawable/ic_baseline_menu_book_24"
+            android:drawablePadding="10dp"
+            android:hint="Enter your exam name"
+            android:id="@+id/exam_name"
+            android:inputType="phone"
+            android:textColorHint="@android:color/black"
+            android:textSize="18sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginLeft="10dp"
+            android:text="Medium of Paper:"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="15dp" />
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="40dp"
+            android:drawableLeft="@drawable/ic_baseline_menu_book_24"
+            android:drawablePadding="10dp"
+            android:hint="In which language the paper is"
+            android:id="@+id/medium_paper"
+            android:inputType="phone"
+            android:textColorHint="@android:color/black"
+            android:textSize="18sp" />
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_marginLeft="10dp"
+        android:text="Date of examination:"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="15dp" />
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="40dp"
+            android:drawableLeft="@drawable/ic_baseline_menu_book_24"
+            android:drawablePadding="10dp"
+            android:hint="In which language the paper is"
+            android:id="@+id/date_exam"
+            android:inputType="date"
+            android:textColorHint="@android:color/black"
+            android:textSize="18sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginLeft="10dp"
+            android:text="Exam Venu:"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="15dp" />
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="40dp"
+            android:hint="Enter address of examination hall"
+            android:id="@+id/exam_add"
+            android:inputType="textPostalAddress"
+            android:textColorHint="@android:color/black"
+            android:textSize="18sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="School/College Name:"
+            android:layout_marginLeft="10dp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="15dp" />
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="40dp"
+            android:drawableLeft="@drawable/ic_baseline_account_balance_24"
+            android:drawablePadding="10dp"
+            android:hint="Enter your school/college name"
+            android:inputType="text"
+            android:textColorHint="@android:color/black"
+            android:textSize="18sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Course obtained:"
+            android:layout_marginLeft="10dp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="15dp" />
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="40dp"
+            android:drawableLeft="@drawable/ic_baseline_menu_book_24"
+            android:drawablePadding="10dp"
+            android:hint="Enter your course name"
+            android:inputType="text"
+            android:textColorHint="@android:color/black"
+            android:textSize="18sp" />
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="30dp"
+            android:id="@+id/register_stud"
+            android:background="@color/colorPrimary"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="Register"
+            android:layout_marginLeft="105dp"
+            android:textColor="#ffffff"
+            android:textSize="25sp" />
+    </LinearLayout>
+
+</ScrollView>
