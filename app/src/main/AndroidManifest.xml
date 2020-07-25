@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.saksham">
+
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".Notification"
@@ -13,7 +18,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ContactUs"></activity>
+        <activity android:name=".ListMatches"></activity>
+        <activity android:name=".ForgotPasswordStud" />
+        <activity android:name=".LoginStud" />
+        <activity android:name=".Login" />
+        <activity android:name=".RegistrationWriter" />
+        <activity android:name=".PasswordChange" />
+        <activity android:name=".ForgotPassword" />
+        <activity android:name=".ContactUs" />
         <activity android:name=".RateWriter" />
         <activity android:name=".ProfileStud" />
         <activity android:name=".RequestWriter" />
@@ -22,9 +34,7 @@
         <activity android:name=".MyProfile" />
         <activity android:name=".RegisterStud" />
         <activity android:name=".RegistrationBtn" />
-        <activity android:name=".Registration" />
         <activity android:name=".Home" />
-        <activity android:name=".Login" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,6 +42,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <receiver android:name=".NotificationReceiver" />
     </application>
 

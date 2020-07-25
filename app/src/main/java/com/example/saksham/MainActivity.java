@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         logo= findViewById(R.id.logo);
         Animation anim= AnimationUtils.loadAnimation(this,R.anim.fade);
         logo.startAnimation(anim);
-        final Intent intent =new Intent(this,Login.class);
+        final Intent intent =new Intent(this,RegistrationBtn.class);
         Thread timer= new Thread(){
             public void run(){
                 try {

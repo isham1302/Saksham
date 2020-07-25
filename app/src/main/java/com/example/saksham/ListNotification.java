@@ -3,6 +3,7 @@ package com.example.saksham;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +30,20 @@ public class ListNotification extends AppCompatActivity {
     AdapterNotification adapterNotification;
     List<String> studentList;
 
+    FirebaseAuth firebaseAuth;
+    DatabaseReference userdb;
+    String currentUid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_notification);
 
         studentList= new ArrayList<>();
+
+        firebaseAuth= FirebaseAuth.getInstance();
+        currentUid= firebaseAuth.getCurrentUser().getUid();
+        userdb= FirebaseDatabase.getInstance().getReference().child("Saksham");
 
         recyclerView= findViewById(R.id.recyclerView_notification);
         adapterNotification= new AdapterNotification(studentList);
@@ -67,6 +82,8 @@ public class ListNotification extends AppCompatActivity {
                     deletedcard=studentList.get(position);
                     studentList.remove(position);
                     adapterNotification.notifyItemRemoved(position);
+                    userdb.child("Writer").child(String.valueOf(position)).child("Connection").child("Reject").child(currentUid).setValue(true);
+
                     Snackbar.make(recyclerView, (CharSequence) deletedcard,Snackbar.LENGTH_LONG)
                     .setAction("Undo", new View.OnClickListener() {
                         @Override
@@ -81,6 +98,10 @@ public class ListNotification extends AppCompatActivity {
                     acceptRequest.add(studentName);
                     studentList.remove(position);
                     adapterNotification.notifyItemRemoved(position);
+
+                    userdb.child("Writer").child(String.valueOf(position)).child("Connection").child("Accept").child(currentUid).setValue(true);
+                    isConnectionMatch(position);
+
                     Snackbar.make(recyclerView, (CharSequence) studentName+",Accepted.",Snackbar.LENGTH_LONG)
                             .setAction("Undo", new View.OnClickListener() {
                                 @Override
@@ -106,4 +127,22 @@ public class ListNotification extends AppCompatActivity {
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
         }
     };
+
+    private void isConnectionMatch(int position) {
+        DatabaseReference currentUserId = userdb.child("Writer").child(currentUid).child("Connections").child("Accept").child(String.valueOf(position));
+        currentUserId.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Toast.makeText(ListNotification.this, "Accepted...", Toast.LENGTH_SHORT).show();
+                    userdb.child("Writer").child(snapshot.getKey()).child("Connection").child("Matches").child(currentUid).setValue(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 }

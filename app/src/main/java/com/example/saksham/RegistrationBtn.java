@@ -20,14 +20,14 @@ public class RegistrationBtn extends AppCompatActivity {
         writerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent regIntent= new Intent(RegistrationBtn.this,Registration.class);
+                Intent regIntent= new Intent(RegistrationBtn.this,Login.class);
                 startActivity(regIntent);
             }
         });
         studentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent regIntent= new Intent(RegistrationBtn.this,RegisterStud.class);
+                Intent regIntent= new Intent(RegistrationBtn.this,LoginStud.class);
                 startActivity(regIntent);
             }
         });

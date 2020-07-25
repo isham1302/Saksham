@@ -6,18 +6,38 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class HomeStud extends AppCompatActivity {
+    EditText eFirstName, eLastName, eUserName, ePhoneNo, edit_email, edit_school, edit_course, ePassword, eCPassword;
+    TextView dob_txt;
+    RadioButton male_btn, female_btn;
     GridView gridView;
+    ImageButton profilePic;
     private NotificationManagerCompat notificationManager;
-    public static final String SHARED_PREF_NAME="mypref";
-    SharedPreferences sharedPreferences;
+
+    String gender = "";
+
+    DatabaseReference reference;
+    FirebaseAuth auth;
+
     String[] topic= {"Request Writer","My Profile","Notification","Rate Writer","Contact Us","Logout"};
     int[] topicImage={R.drawable.writer, R.drawable.profile, R.drawable.notification, R.drawable.rate, R.drawable.contact, R.drawable.logout};
     @Override
@@ -25,8 +45,23 @@ public class HomeStud extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_stud);
         gridView= findViewById(R.id.grid_view);
-        sharedPreferences= getSharedPreferences(SHARED_PREF_NAME,MODE_PRIVATE);
         notificationManager= NotificationManagerCompat.from(this);
+
+        auth= FirebaseAuth.getInstance();
+
+        dob_txt = findViewById(R.id.dob);
+        eFirstName = findViewById(R.id.fname);
+        eLastName = findViewById(R.id.lname);
+        eUserName = findViewById(R.id.username);
+        ePhoneNo = findViewById(R.id.phoneNo);
+        male_btn = findViewById(R.id.male_btn);
+        female_btn = findViewById(R.id.female_btn);
+        edit_email = findViewById(R.id.email);
+        edit_school = findViewById(R.id.school_college);
+        edit_course = findViewById(R.id.course);
+        ePassword = findViewById(R.id.password);
+        eCPassword = findViewById(R.id.cpassword);
+        profilePic= findViewById(R.id.profile_pic);
 
         MainAdapter adapter= new MainAdapter(HomeStud.this,topic,topicImage);
         gridView.setAdapter(adapter);
@@ -39,9 +74,42 @@ public class HomeStud extends AppCompatActivity {
                     startActivity(requestWriter);
                 }
                 if (topic[i].equals("My Profile")){
-                    Intent profileIntent= new Intent(HomeStud.this,ProfileStud.class);
-                    startActivity(profileIntent);
-                }
+                    reference= FirebaseDatabase.getInstance().getReference().child("Registration student").child("1");
+                    reference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                           final String stud_firstName= snapshot.child("firstName").getValue().toString();
+                            final String stud_lastName= snapshot.child("lastName").getValue().toString();
+                            final String stud_username= snapshot.child("username").getValue().toString();
+                            final String stud_phoneNo= snapshot.child("phoneNo").getValue().toString();
+                            final String stud_email= snapshot.child("email").getValue().toString();
+                            final String stud_dob= snapshot.child("dob").getValue().toString();
+                            final String stud_gender= snapshot.child("gender").getValue().toString();
+                            final String stud_schoolCollegeName= snapshot.child("school_College_Name").getValue().toString();
+                            final String stud_course= snapshot.child("course").getValue().toString();
+                            final  String stud_pic= snapshot.child("profilePic").getValue().toString();
+                            Intent profileIntent= new Intent(HomeStud.this,ProfileStud.class);
+                           profileIntent.putExtra("firstName",stud_firstName);
+                            profileIntent.putExtra("lastName",stud_lastName);
+                            profileIntent.putExtra("username",stud_username);
+                            profileIntent.putExtra("phoneNo",stud_phoneNo);
+                            profileIntent.putExtra("email",stud_email);
+                            profileIntent.putExtra("dob",stud_dob);
+                            profileIntent.putExtra("gender",stud_gender);
+                            profileIntent.putExtra("school_College_Name",stud_schoolCollegeName);
+                            profileIntent.putExtra("course",stud_course);
+                            profileIntent.putExtra("profilePic",stud_pic);
+
+                            startActivity(profileIntent);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                    }
                 if (topic[i].equals("Notification")){
                     PopupNotification();
                 }
@@ -54,12 +122,9 @@ public class HomeStud extends AppCompatActivity {
                     startActivity(contact);
                 }
                 if (topic[i].equals("Logout")){
-                    SharedPreferences.Editor editor= sharedPreferences.edit();
-                    editor.clear();
-                    editor.commit();
-                    finish();
                     Toast.makeText(HomeStud.this, "Logout done successfully..", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(HomeStud.this,Login.class));
+                    startActivity(new Intent(HomeStud.this,LoginStud.class));
+                    auth.signOut();
                     finish();
                 }
 

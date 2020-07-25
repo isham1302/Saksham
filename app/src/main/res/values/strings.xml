@@ -6,6 +6,7 @@
     <string name="invalid_Password">Please Enter atleast 6 Character</string>
     <string name="invalid_date">Please Enter the Date of Birth </string>
     <string name="invalid_cpass">Password and Confirm Password not matching</string>
+    <string name="invalid_lang">Please Select Language if any</string>
     <string-array name="language">
         <item>Other</item>
         <item>French</item>
@@ -31,7 +32,7 @@
         <item></item>
         <item>Science-A</item>
         <item>Science-B</item>
-        <item>Commers</item>
+        <item>Commerce</item>
         <item>Arts</item>
     </string-array>
     <string-array name="undergradutation">
@@ -46,6 +47,7 @@
         <item></item>
         <item>MBA</item>
         <item>MSC</item>
+        <item>MCA</item>
         <item>MCOM</item>
         <item>MTECH</item>
     </string-array>

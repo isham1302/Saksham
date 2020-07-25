@@ -3,42 +3,60 @@ package com.example.saksham;
 import android.Manifest;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class Home extends AppCompatActivity {
     private static final int SEND_SMS_PERMISSION_REQUEST_CODE = 101;
     private static final int REQUEST_CALL=1;
     private NotificationManagerCompat notificationManager;
     Toolbar toolbar;
-    Button apply;
-    ViewPager viewPager;
-    Adapter adapter;
-    List<Model> models;
-    SharedPreferences sharedPreferences;
-    public static final String SHARED_PREF_NAME="mypref";
+
+    private Adapter adapter[];
+    private arrayAdapter arrayAdapter;
+    private int i;
+
+    FirebaseAuth firebaseAuth;
+    DatabaseReference userdb;
+
+    SwipeFlingAdapterView flingContainer;
+
+    ListView listView;
+    List<Adapter> row_items;
+     String currentUid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,32 +65,83 @@ public class Home extends AppCompatActivity {
         toolbar= findViewById(R.id.homeToolbar);
         setSupportActionBar(toolbar);
 
-        apply= findViewById(R.id.btn_apply);
-        sharedPreferences= getSharedPreferences(SHARED_PREF_NAME,MODE_PRIVATE);
-
         notificationManager= NotificationManagerCompat.from(this);
+        firebaseAuth= FirebaseAuth.getInstance();
+        currentUid= firebaseAuth.getCurrentUser().getUid();
+        userdb= FirebaseDatabase.getInstance().getReference().child("Saksham");
+        checkUser();
 
-        models= new ArrayList<>();
-        models.add(new Model(R.drawable.woman,"Name:Pooja Sharma","Medium of Paper:English"+"\n"+"Exam:Maths"));
-        models.add(new Model(R.drawable.woman,"Name:Pooja Sharma","Medium of Paper:English"+"\n"+"Exam:Social Science"));
-       models.add(new Model(R.drawable.woman,"Name:Pooja Sharma","Medium of Paper:English"+"\n"+"Exam:Science"));
-        models.add(new Model(R.drawable.woman,"Name:Pooja Sharma","Medium of Paper:English"+"\n"+"Exam:Social Science"));
-        models.add(new Model(R.drawable.woman,"Name:Pooja Sharma","Medium of Paper:English"+"\n"+"Exam:Social Science"));
+        row_items = new ArrayList<Adapter>();
 
-        adapter= new Adapter(models, this);
-        viewPager = findViewById(R.id.viewPager);
-        viewPager.setAdapter(adapter);
-        viewPager.setPadding(110,15,130,0);
-
-        apply.setOnClickListener(new View.OnClickListener() {
+        arrayAdapter = new arrayAdapter(this, R.layout.item, row_items );
+        flingContainer = findViewById(R.id.frame);
+        flingContainer.setAdapter(arrayAdapter);
+        flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
-            public void onClick(View view) {
-                final int position =viewPager.getCurrentItem();
-                Toast.makeText(Home.this,position, Toast.LENGTH_SHORT).show();
-                viewPager.setBackground(Drawable.createFromPath("#000"));
+            public void removeFirstObjectInAdapter() {
+                // this is the simplest way to delete an object from the Adapter (/AdapterView)
+                Log.d("LIST", "removed object!");
+                row_items.remove(0);
+                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onLeftCardExit(Object dataObject) {
+                Adapter obj= (Adapter)dataObject;
+               final String id= obj.getUserId();
+                userdb.child(userStudent).child(id).child("Connection").child("Reject").child(currentUid).setValue(true);
+                Toast.makeText(Home.this, "Left", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRightCardExit(Object dataObject) {
+                Adapter obj= (Adapter)dataObject;
+                String id= obj.getUserId();
+                userdb.child(userStudent).child(id).child("Connection").child("Accept").child(currentUid).setValue(true);
+                isConnectionMatch(id);
+                Toast.makeText(Home.this, "Right", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAdapterAboutToEmpty(int itemsInAdapter) {
+                // Ask for more data here
+            }
+
+            @Override
+            public void onScroll(float scrollProgressPercent) {
+
+            }
+        });
+
+
+        // Optionally add an OnItemClickListener
+        flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClicked(int itemPosition, Object dataObject) {
+                Toast.makeText(Home.this, "Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private void isConnectionMatch(String id) {
+        DatabaseReference currentUserId= userdb.child(userStudent).child(currentUid).child("Connections").child("Accept").child(id);
+        currentUserId.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    Toast.makeText(Home.this, "Accepted...", Toast.LENGTH_SHORT).show();
+                    userdb.child("Student").child(snapshot.getKey()).child("Connection").child("Matches").child(currentUid).setValue(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -84,7 +153,7 @@ public class Home extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.item1:
                 Toast.makeText(this, "My Profile", Toast.LENGTH_SHORT).show();
-                Intent profileIntent= new Intent(Home.this, MyProfile.class);
+                Intent profileIntent = new Intent(Home.this, MyProfile.class);
                 startActivity(profileIntent);
                 return true;
             case R.id.item2:
@@ -96,12 +165,9 @@ public class Home extends AppCompatActivity {
                 return true;
             case R.id.item4:
                 Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
-                SharedPreferences.Editor editor= sharedPreferences.edit();
-                editor.clear();
-                editor.commit();
-                finish();
                 Toast.makeText(Home.this, "Logout done successfully..", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this,Login.class));
+                firebaseAuth.signOut();
                 finish();
                 return true;
             case R.id.subitem1:
@@ -136,7 +202,8 @@ public class Home extends AppCompatActivity {
     }
 
     private void PopupNotification() {
-        Intent activityIntent= new Intent(Home.this,ListNotification.class);
+        Intent activityIntent= new Intent(Home.this,ListMatches.class);
+
         PendingIntent contentIntent= PendingIntent.getActivity(this,0,activityIntent,0);
         Intent broadcastIntent= new Intent(this,NotificationReceiver.class);
         broadcastIntent.putExtra("ToastMessage","This is message");
@@ -154,6 +221,8 @@ public class Home extends AppCompatActivity {
                 .addAction(R.mipmap.ic_launcher,"Toast", actionIntent)
                 .build();
         notificationManager.notify(1,notification);
+
+
     }
 
     private void textSMS() {
@@ -217,5 +286,101 @@ public class Home extends AppCompatActivity {
             app_installed=false;
         }
         return app_installed;
+    }
+
+    private String userWriter;
+    private String userStudent;
+    public void checkUser(){
+        final FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference writerDB= FirebaseDatabase.getInstance().getReference().child("Saksham").child("Writer");
+        writerDB.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if (snapshot.getKey().equals(user.getUid())){
+                    userWriter="Writer";
+                    userStudent="Student";
+                    getMatch();
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        DatabaseReference studDB= FirebaseDatabase.getInstance().getReference().child("Saksham").child("Student");
+        studDB.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if (snapshot.getKey().equals(user.getUid())){
+                    userWriter="Writer";
+                    userStudent="Student";
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    public void getMatch() {
+        DatabaseReference matchDB= FirebaseDatabase.getInstance().getReference().child("Saksham").child(userStudent);
+        matchDB.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if (snapshot.exists() && snapshot.child("Connection").child("Reject").hasChild(currentUid) && snapshot.child("Connection").child("Accept").hasChild(currentUid)){
+                   Adapter item= new Adapter(snapshot.getKey(),snapshot.child("fname").getValue().toString(),snapshot.child("lname").getValue().toString(),snapshot.child("examname").getValue().toString(),snapshot.child("medium_paper").getValue().toString(),snapshot.child("dateOfExam").getValue().toString(),snapshot.child("venu").getValue().toString(),snapshot.child("college_School_Name").getValue().toString(),snapshot.child("course").getValue().toString(),snapshot.child("profileImageUrl").getValue().toString());
+                    row_items.add(item);
+                    arrayAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
 }

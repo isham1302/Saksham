@@ -11,50 +11,99 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import java.util.List;
+public class Adapter {
+        private String userId, fname, lname, examname, medium_paper, dateOfExam, Venu, College_School_Name, Course, profileImageUrl;
 
-public class Adapter extends PagerAdapter {
-    private List<Model> models;
-    private LayoutInflater layoutInflater;
-    private Context context;
+        public Adapter(String userId, String fname, String lname, String examname, String medium_paper, String dateOfExam, String venu, String college_School_Name, String course, String profileImageUrl) {
+                this.userId = userId;
+                this.fname = fname;
+                this.lname = lname;
+                this.examname = examname;
+                this.medium_paper = medium_paper;
+                this.dateOfExam = dateOfExam;
+                Venu = venu;
+                College_School_Name = college_School_Name;
+                Course = course;
+                this.profileImageUrl = profileImageUrl;
+        }
 
+        public String getUserId() {
+                return userId;
+        }
 
-    public Adapter(List<Model> models,Context context) {
-        this.models = models;
-        this.context = context;
-    }
+        public void setUserId(String userId) {
+                this.userId = userId;
+        }
 
-    @Override
-    public int getCount() {
-        return models.size();
-    }
+        public String getFname() {
+                return fname;
+        }
 
-    @Override
-    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view.equals(object);
-    }
+        public void setFname(String fname) {
+                this.fname = fname;
+        }
 
-    @NonNull
-    @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        layoutInflater= LayoutInflater.from(context);
-        View view= layoutInflater.inflate(R.layout.item, container,false);
-        ImageView imageView;
-        TextView title,descp;
+        public String getLname() {
+                return lname;
+        }
 
-        imageView= view.findViewById(R.id.imageView);
-        title= view.findViewById(R.id.title);
-        descp= view.findViewById(R.id.descp);
-        imageView.setImageResource(models.get(position).getImage());
-        title.setText(models.get(position).getTitle());
-        descp.setText(models.get(position).getDescp());
-        container.addView(view,0);
-        return view;
-    }
+        public void setLname(String lname) {
+                this.lname = lname;
+        }
 
-    @Override
-    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-       container.removeView((View)object);
-    }
+        public String getExamname() {
+                return examname;
+        }
+
+        public void setExamname(String examname) {
+                this.examname = examname;
+        }
+
+        public String getMedium_paper() {
+                return medium_paper;
+        }
+
+        public void setMedium_paper(String medium_paper) {
+                this.medium_paper = medium_paper;
+        }
+
+        public String getDateOfExam() {
+                return dateOfExam;
+        }
+
+        public void setDateOfExam(String dateOfExam) {
+                this.dateOfExam = dateOfExam;
+        }
+
+        public String getVenu() {
+                return Venu;
+        }
+
+        public void setVenu(String venu) {
+                Venu = venu;
+        }
+
+        public String getCollege_School_Name() {
+                return College_School_Name;
+        }
+
+        public void setCollege_School_Name(String college_School_Name) {
+                College_School_Name = college_School_Name;
+        }
+
+        public String getCourse() {
+                return Course;
+        }
+
+        public void setCourse(String course) {
+                Course = course;
+        }
+
+        public String getProfileImageUrl() {
+                return profileImageUrl;
+        }
+
+        public void setProfileImageUrl(String profileImageUrl) {
+                this.profileImageUrl = profileImageUrl;
+        }
 }
-
-

@@ -69,7 +69,7 @@
             android:drawablePadding="10dp"
             android:hint="Enter your exam name"
             android:id="@+id/exam_name"
-            android:inputType="phone"
+            android:inputType="text"
             android:textColorHint="@android:color/black"
             android:textSize="18sp" />
         <TextView
@@ -89,29 +89,36 @@
             android:drawablePadding="10dp"
             android:hint="In which language the paper is"
             android:id="@+id/medium_paper"
-            android:inputType="phone"
+            android:inputType="text"
             android:textColorHint="@android:color/black"
             android:textSize="18sp" />
-        <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:layout_marginLeft="10dp"
-        android:text="Date of examination:"
-        android:textColor="@android:color/black"
-        android:layout_marginTop="15dp" />
-        <EditText
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginLeft="40dp"
-            android:drawableLeft="@drawable/ic_baseline_menu_book_24"
-            android:drawablePadding="10dp"
-            android:hint="In which language the paper is"
-            android:id="@+id/date_exam"
-            android:inputType="date"
-            android:textColorHint="@android:color/black"
-            android:textSize="18sp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginLeft="10dp"
+                android:text="Date of Examination:"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="15dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/date_exam"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="15dp" />
+        </LinearLayout>
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="105dp"
+            android:id="@+id/calender_exam"
+            android:src="@drawable/calendar"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -145,6 +152,7 @@
             android:layout_marginLeft="40dp"
             android:drawableLeft="@drawable/ic_baseline_account_balance_24"
             android:drawablePadding="10dp"
+            android:id="@+id/name_sch_clg"
             android:hint="Enter your school/college name"
             android:inputType="text"
             android:textColorHint="@android:color/black"
@@ -165,6 +173,7 @@
             android:drawableLeft="@drawable/ic_baseline_menu_book_24"
             android:drawablePadding="10dp"
             android:hint="Enter your course name"
+            android:id="@+id/name_course"
             android:inputType="text"
             android:textColorHint="@android:color/black"
             android:textSize="18sp" />
@@ -172,7 +181,7 @@
             android:layout_width="150dp"
             android:layout_height="45dp"
             android:layout_marginTop="30dp"
-            android:id="@+id/register_stud"
+            android:id="@+id/request_writer"
             android:background="@color/colorPrimary"
             android:gravity="center_horizontal|center_vertical"
             android:text="Register"

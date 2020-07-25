@@ -4,34 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Registration">
+    tools:context=".RegistrationWriter">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    <include layout="@layout/custom_toolbar"/>
+        <include layout="@layout/custom_toolbar"/>
+        <ImageButton
+            android:id="@+id/profileImage"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/woman" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="First Name:"
-        android:layout_marginLeft="10dp"
-        android:textColor="@android:color/black"
-        android:layout_marginTop="20dp" />
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginLeft="40dp"
-        android:drawableLeft="@drawable/ic_baseline_account_circle_24"
-        android:drawablePadding="10dp"
-        android:hint="Enter your first name"
-        android:id="@+id/fname"
-        android:inputType="text"
-        android:textColorHint="@android:color/black"
-        android:textSize="18sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="First Name:"
+            android:layout_marginLeft="10dp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="20dp" />
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="40dp"
+            android:drawableLeft="@drawable/ic_baseline_account_circle_24"
+            android:drawablePadding="10dp"
+            android:hint="Enter your first name"
+            android:id="@+id/fname"
+            android:inputType="text"
+            android:textColorHint="@android:color/black"
+            android:textSize="18sp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -80,27 +87,27 @@
             android:text="Gender:"
             android:textColor="@android:color/black"
             android:layout_marginTop="16dp" />
-       <RadioGroup
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:orientation="horizontal">
-           <androidx.appcompat.widget.AppCompatRadioButton
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginLeft="45dp"
-               android:textSize="18sp"
-               android:id="@+id/male"
-               android:textColor="@android:color/black"
-               android:text="Male"/>
-           <androidx.appcompat.widget.AppCompatRadioButton
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginLeft="55dp"
-               android:textSize="18sp"
-               android:id="@+id/female"
-               android:textColor="@android:color/black"
-               android:text="Female"/>
-       </RadioGroup>
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="45dp"
+                android:textSize="18sp"
+                android:id="@+id/male"
+                android:textColor="@android:color/black"
+                android:text="Male"/>
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="55dp"
+                android:textSize="18sp"
+                android:id="@+id/female"
+                android:textColor="@android:color/black"
+                android:text="Female"/>
+        </RadioGroup>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -168,46 +175,58 @@
             android:inputType="textEmailAddress"
             android:textColorHint="@android:color/black"
             android:textSize="18sp" />
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:layout_marginLeft="10dp"
-            android:text="Please select language Know"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="15dp" />
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginLeft="10dp"
+                android:text="Please select language Know:"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="15dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/language"
+                android:layout_marginLeft="10dp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="15dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.AppCompatCheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="2dp"
-            android:layout_marginLeft="35dp"
-            android:textSize="18sp"
-            android:id="@+id/lang_eng"
-            android:text="English"/>
-        <androidx.appcompat.widget.AppCompatCheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="2dp"
-            android:layout_marginLeft="25dp"
-            android:textSize="18sp"
-            android:id="@+id/lang_hind"
-            android:text="Hindi"/>
-        <androidx.appcompat.widget.AppCompatCheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="2dp"
-            android:layout_marginLeft="25dp"
-            android:textSize="18sp"
-            android:id="@+id/lang_guj"
-            android:text="Gujarati"/>
-    </LinearLayout>
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="35dp"
+                android:textSize="18sp"
+                android:id="@+id/lang_eng"
+                android:text="English"/>
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="25dp"
+                android:textSize="18sp"
+                android:id="@+id/lang_hind"
+                android:text="Hindi"/>
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="25dp"
+                android:textSize="18sp"
+                android:id="@+id/lang_guj"
+                android:text="Gujarati"/>
+        </LinearLayout>
         <Spinner
             android:layout_width="105dp"
             android:layout_height="35dp"
@@ -218,14 +237,23 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:layout_marginLeft="10dp"
-            android:text="Stream in Secondary Education"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="15dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginLeft="10dp"
+                android:text="Stream in Secondary Education:"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="15dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/spin_school"
+                android:layout_marginLeft="10dp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="15dp" />
+        </LinearLayout>
         <Spinner
             android:layout_width="115dp"
             android:layout_height="35dp"
@@ -233,18 +261,26 @@
             android:layout_marginTop="2dp"
             android:layout_marginLeft="5dp"
             android:background="@drawable/spinner_border"/>
-        </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:layout_marginLeft="10dp"
-            android:text="UnderGraduation Degree"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="15dp" />
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginLeft="10dp"
+                android:text="UnderGraduation Degree:"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="15dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/spin_ug"
+                android:layout_marginLeft="10dp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="15dp" />
+        </LinearLayout>
         <Spinner
             android:layout_width="105dp"
             android:layout_height="35dp"
@@ -252,18 +288,26 @@
             android:layout_marginTop="2dp"
             android:layout_marginLeft="5dp"
             android:background="@drawable/spinner_border"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:layout_marginLeft="10dp"
-            android:text="PostGraduation Degree"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="15dp" />
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginLeft="10dp"
+                android:text="PostGraduation Degree:"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="15dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/spin_pg"
+                android:layout_marginLeft="10dp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="15dp" />
+        </LinearLayout>
         <Spinner
             android:layout_width="105dp"
             android:layout_height="35dp"
@@ -271,18 +315,26 @@
             android:layout_marginTop="2dp"
             android:layout_marginLeft="5dp"
             android:background="@drawable/spinner_border"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:layout_marginLeft="10dp"
-            android:text="Current work status"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="15dp" />
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginLeft="10dp"
+                android:text="Current work status:"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="15dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/spin_work"
+                android:layout_marginLeft="10dp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="15dp" />
+        </LinearLayout>
         <Spinner
             android:layout_width="125dp"
             android:layout_height="35dp"
@@ -290,7 +342,6 @@
             android:layout_marginTop="2dp"
             android:layout_marginLeft="5dp"
             android:background="@drawable/spinner_border"/>
-    </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -342,5 +393,14 @@
             android:layout_marginLeft="105dp"
             android:textColor="#ffffff"
             android:textSize="25sp" />
+        <com.github.ybq.android.spinkit.SpinKitView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/spin_kit"
+            style="@style/SpinKitView.Large.CubeGrid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:SpinKit_Color="@color/colorAccent" />
     </LinearLayout>
+
 </ScrollView>

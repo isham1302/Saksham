@@ -59,7 +59,7 @@
                     android:drawablePadding="10dp"
                     android:hint="Enter your email id"
                     android:layout_marginTop="15dp"
-                    android:id="@+id/emailId"
+                    android:id="@+id/email_add"
                     android:inputType="textEmailAddress"
                     android:textColorHint="@android:color/black"
                     android:textSize="18sp" />
@@ -119,14 +119,6 @@
                         android:layout_marginLeft="10dp"/>
                 </LinearLayout>
             </LinearLayout>
-            <com.github.ybq.android.spinkit.SpinKitView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/spin_kit"
-                style="@style/SpinKitView.Large.CubeGrid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                app:SpinKit_Color="@color/colorAccent" />
 
         </androidx.cardview.widget.CardView>
 

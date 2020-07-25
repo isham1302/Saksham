@@ -18,22 +18,49 @@
         android:src="@drawable/woman"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"/>
-    <TextView
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="First Name:"
+                android:layout_marginLeft="10dp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="20dp" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/firstname"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="20dp"/>
+        </LinearLayout>
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="First Name:"
-        android:layout_marginLeft="10dp"
-        android:textColor="@android:color/black"
-        android:layout_marginTop="20dp" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:layout_marginLeft="10dp"
-        android:text="Last Name:"
-        android:textColor="@android:color/black"
-        android:layout_marginTop="15dp" />
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginLeft="10dp"
+            android:text="Last Name:"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="15dp" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:id="@+id/lastname"
+            android:layout_marginLeft="10dp"
+            android:textColor="@android:color/black" />
+
+    </LinearLayout>
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,14 +69,38 @@
         android:text="Login User Name"
         android:textColor="@android:color/black"
         android:layout_marginTop="18dp" />
-    <TextView
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
+        android:id="@+id/username"
         android:layout_marginLeft="10dp"
-        android:text="Gender:"
         android:textColor="@android:color/black"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="20dp" />
+</LinearLayout>
+   <LinearLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content">
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textSize="18sp"
+           android:layout_marginLeft="10dp"
+           android:text="Gender:"
+           android:textColor="@android:color/black"
+           android:layout_marginTop="16dp" />
+       <EditText
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textSize="18sp"
+           android:id="@+id/gender"
+           android:layout_marginLeft="10dp"
+           android:textColor="@android:color/black"
+           android:layout_marginTop="20dp" />
+   </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,64 +108,185 @@
             android:layout_marginLeft="10dp"
             android:text="Date of Birth:"
             android:textColor="@android:color/black"/>
-    <TextView
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:id="@+id/dob"
+            android:layout_marginLeft="10dp"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginLeft="10dp"
+                android:text="Contact Number:"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="15dp" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/mobile"
+                android:layout_marginLeft="10dp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="20dp" />
+        </LinearLayout>
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:layout_marginLeft="10dp"
-        android:text="Contact Number:"
-        android:textColor="@android:color/black"
-        android:layout_marginTop="15dp" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:layout_marginLeft="10dp"
-        android:text="Email Address:"
-        android:textColor="@android:color/black"
-        android:layout_marginTop="15dp" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:layout_marginLeft="10dp"
-        android:text="Please select language Know"
-        android:textColor="@android:color/black"
-        android:layout_marginTop="15dp" />
-
+        android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:layout_marginLeft="10dp"
-            android:text="Stream in Secondary Education"
+            android:text="Email Address:"
             android:textColor="@android:color/black"
             android:layout_marginTop="15dp" />
-        <TextView
+        <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
+            android:id="@+id/email_id"
             android:layout_marginLeft="10dp"
-            android:text="UnderGraduation Degree"
             android:textColor="@android:color/black"
-            android:layout_marginTop="15dp" />
-        <TextView
+            android:layout_marginTop="20dp" />
+    </LinearLayout>
+   <LinearLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content">
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textSize="18sp"
+           android:layout_marginLeft="10dp"
+           android:text="Language Know"
+           android:textColor="@android:color/black"
+           android:layout_marginTop="15dp" />
+       <EditText
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textSize="18sp"
+           android:id="@+id/lang"
+           android:layout_marginLeft="10dp"
+           android:textColor="@android:color/black"
+           android:layout_marginTop="20dp" />
+   </LinearLayout>
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:layout_marginLeft="10dp"
-            android:text="PostGraduation Degree"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="15dp" />
-
-        <TextView
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginLeft="10dp"
+                android:text="Stream in Secondary Education"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="15dp" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/school"
+                android:layout_marginLeft="10dp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="20dp" />
+        </LinearLayout>
+       <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content">
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="18sp"
+               android:layout_marginLeft="10dp"
+               android:text="UnderGraduation Degree"
+               android:textColor="@android:color/black"
+               android:layout_marginTop="15dp" />
+           <EditText
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="18sp"
+               android:id="@+id/ug"
+               android:layout_marginLeft="10dp"
+               android:textColor="@android:color/black"
+               android:layout_marginTop="20dp" />
+       </LinearLayout>
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:layout_marginLeft="10dp"
-            android:text="Current work status"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="15dp" />
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginLeft="10dp"
+                android:text="PostGraduation Degree"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="15dp" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/pg"
+                android:layout_marginLeft="10dp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="20dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginLeft="10dp"
+                android:text="Current work status"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="15dp" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/work"
+                android:layout_marginLeft="10dp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="20dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginLeft="10dp"
+                android:text="Password"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="15dp" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/secured_password"
+                android:layout_marginLeft="10dp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="20dp" />
+        </LinearLayout>
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="120dp"
+            android:id="@+id/save"
+            android:background="@color/colorPrimary"
+            android:text="Save"
+            android:layout_marginLeft="65dp"
+            android:textColor="#ffffff"
+            android:textSize="25sp" />
 
     </LinearLayout>
 </ScrollView>

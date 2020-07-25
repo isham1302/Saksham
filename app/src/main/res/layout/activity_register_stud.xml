@@ -10,7 +10,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
     <include layout="@layout/custom_toolbar"/>
-
+        <ImageButton
+            android:id="@+id/profile_pic"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:src="@drawable/woman"
+            android:background="#ffffff"
+            android:layout_marginTop="5dp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -88,6 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="45dp"
             android:textSize="18sp"
+            android:id="@+id/male_btn"
             android:textColor="@android:color/black"
             android:text="Male"/>
         <androidx.appcompat.widget.AppCompatRadioButton
@@ -95,6 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="55dp"
             android:textSize="18sp"
+            android:id="@+id/female_btn"
             android:textColor="@android:color/black"
             android:text="Female"/>
     </RadioGroup>
@@ -181,6 +190,7 @@
             android:drawableLeft="@drawable/ic_baseline_account_balance_24"
             android:drawablePadding="10dp"
             android:hint="Enter your school/college name"
+            android:id="@+id/school_college"
             android:inputType="text"
             android:textColorHint="@android:color/black"
             android:textSize="18sp" />
@@ -200,6 +210,7 @@
             android:drawableLeft="@drawable/ic_baseline_menu_book_24"
             android:drawablePadding="10dp"
             android:hint="Enter your course name"
+            android:id="@+id/course"
             android:inputType="text"
             android:textColorHint="@android:color/black"
             android:textSize="18sp" />
@@ -254,5 +265,13 @@
             android:layout_marginLeft="105dp"
             android:textColor="#ffffff"
             android:textSize="25sp" />
+        <com.github.ybq.android.spinkit.SpinKitView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/spin_kit"
+            style="@style/SpinKitView.Large.CubeGrid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:SpinKit_Color="@color/colorAccent" />
     </LinearLayout>
 </ScrollView>
