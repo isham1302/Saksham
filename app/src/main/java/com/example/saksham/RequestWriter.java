@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.saksham.Student.HomeStud;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -88,7 +89,7 @@ public class RequestWriter extends AppCompatActivity {
                 String course = course_name.getText().toString().trim();
 
                 String StudId= auth.getCurrentUser().getUid();
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Saksham").child("Student").child(StudId).child("RequestWriter");
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Saksham").child("RequestWriter").child(StudId);
                 RequestWriterHelper helper= new RequestWriterHelper(fname,lname,exam,paper,address,scho_clg,course);
                 reference.setValue(helper)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -96,7 +97,7 @@ public class RequestWriter extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()){
                                     Toast.makeText(RequestWriter.this, "Request send", Toast.LENGTH_SHORT).show();
-                                    Intent regIntent= new Intent(RequestWriter.this,HomeStud.class);
+                                    Intent regIntent= new Intent(RequestWriter.this, HomeStud.class);
                                     startActivity(regIntent);
                                 }
                                 else {

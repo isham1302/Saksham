@@ -7,6 +7,9 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.saksham.Student.LoginStud;
+import com.example.saksham.Writer.Login;
+
 public class RegistrationBtn extends AppCompatActivity {
     ImageButton writerBtn,studentBtn;
 
@@ -20,14 +23,14 @@ public class RegistrationBtn extends AppCompatActivity {
         writerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent regIntent= new Intent(RegistrationBtn.this,Login.class);
+                Intent regIntent= new Intent(RegistrationBtn.this, Login.class);
                 startActivity(regIntent);
             }
         });
         studentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent regIntent= new Intent(RegistrationBtn.this,LoginStud.class);
+                Intent regIntent= new Intent(RegistrationBtn.this, LoginStud.class);
                 startActivity(regIntent);
             }
         });

@@ -13,10 +13,10 @@ public class MyHolder extends RecyclerView.ViewHolder implements View.OnClickLis
     ItemClickListener itemClickListener;
      MyHolder(@NonNull View itemView) {
         super(itemView);
-        this.mImageView= itemView.findViewById(R.id.iv);
+        /*this.mImageView= itemView.findViewById(R.id.iv);
         this.mTitle= itemView.findViewById(R.id.title_tv);
         this.mDescp= itemView.findViewById(R.id.descp_tv);
-        itemView.setOnClickListener(this);
+        itemView.setOnClickListener(this);*/
     }
 
     @Override

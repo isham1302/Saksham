@@ -1,11 +1,10 @@
 
 
-package com.example.saksham;
+package com.example.saksham.Writer;
 
         import android.content.Context;
         import android.content.DialogInterface;
         import android.content.Intent;
-        import android.content.SharedPreferences;
         import android.net.ConnectivityManager;
         import android.net.NetworkInfo;
         import android.os.Bundle;
@@ -23,7 +22,9 @@ package com.example.saksham;
 
         import com.basgeekball.awesomevalidation.AwesomeValidation;
         import com.basgeekball.awesomevalidation.ValidationStyle;
-        import com.basgeekball.awesomevalidation.utility.RegexTemplate;
+        import com.example.saksham.ImageSliderAdapter;
+        import com.example.saksham.ImageSliderModal;
+        import com.example.saksham.R;
         import com.github.ybq.android.spinkit.style.CubeGrid;
         import com.google.android.gms.tasks.OnCompleteListener;
         import com.google.android.gms.tasks.Task;
@@ -126,14 +127,14 @@ public class Login extends AppCompatActivity {
         txt_reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent regIntent= new Intent(Login.this,RegistrationWriter.class);
+                Intent regIntent= new Intent(Login.this, RegistrationWriter.class);
                 startActivity(regIntent);
             }
         });
         txt_fpass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(Login.this,ForgotPassword.class);
+                Intent intent= new Intent(Login.this, ForgotPassword.class);
                 startActivity(intent);
             }
         });

@@ -1,4 +1,4 @@
-package com.example.saksham;
+package com.example.saksham.Student;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

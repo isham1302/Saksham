@@ -1,4 +1,4 @@
-package com.example.saksham;
+package com.example.saksham.Student;
 
 import android.Manifest;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import com.example.saksham.R;
 
 public class ContactUs extends AppCompatActivity {
     ImageButton btn_call, btn_mail;

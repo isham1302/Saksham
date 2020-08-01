@@ -1,18 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+app:cardCornerRadius="8dp"
+app:cardElevation="6dp"
+app:cardUseCompatPadding="true">
+<LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="20sp">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp">
     <ImageView
         android:layout_width="75dp"
         android:layout_height="75dp"
+        android:id="@+id/MatchImage"
         android:src="@drawable/woman"/>
-    <TextView
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Matches"
-        android:layout_gravity="center"
-        android:id="@+id/MatchId"/>
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:layout_toRightOf="@id/MatchImage"
+            android:layout_toEndOf="@id/MatchImage"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:text="Matches Id"
+            android:id="@+id/MatchId"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_below="@+id/MatchId"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:text="Matches Name"
+            android:id="@+id/MatchName"
+            />
+    </LinearLayout>
 
 </LinearLayout>
+</androidx.cardview.widget.CardView>

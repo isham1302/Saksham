@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".HomeStud">
+    tools:context=".Student.HomeStud">
     <include layout="@layout/home_toolbar"/>
     <GridView
         android:layout_width="wrap_content"

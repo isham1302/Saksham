@@ -1,12 +1,12 @@
-package com.example.saksham;
+package com.example.saksham.Writer;
 
 public class Member {
-    public String fname, lname, username, gender, dob,phone ,school, ug, pg, work, email, pass, language,lang,Type;
+    public String fname, lname, username, gender, dob,phone ,school, ug, pg, work, email, pass, language,lang;
 
     public Member() {
     }
 
-    public Member(String fname, String lname, String username, String gender, String dob, String phone, String school, String ug, String pg, String work, String email, String pass, String language, String lang,String Type) {
+    public Member(String fname, String lname, String username, String gender, String dob, String phone, String school, String ug, String pg, String work, String email, String pass, String language, String lang) {
         this.fname = fname;
         this.lname = lname;
         this.username = username;
@@ -21,7 +21,6 @@ public class Member {
         this.pass = pass;
         this.language = language;
         this.lang = lang;
-        this.Type= Type;
     }
 
     public String getFname() {
@@ -136,11 +135,4 @@ public class Member {
         this.lang = lang;
     }
 
-    public String getType() {
-        return Type;
-    }
-
-    public void setType(String type) {
-        Type = type;
-    }
 }

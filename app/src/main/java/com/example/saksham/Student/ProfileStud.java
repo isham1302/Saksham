@@ -1,4 +1,4 @@
-package com.example.saksham;
+package com.example.saksham.Student;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,8 +16,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.example.saksham.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -99,16 +102,16 @@ public class ProfileStud extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists() && snapshot.getChildrenCount() > 0) {
                     Map<String, Object> map = (Map<String, Object>) snapshot.getValue();
-                    if (map.get("fname") != null) {
-                        firstname = map.get("firstname").toString();
+                    if (map.get("firstName") != null) {
+                        firstname = map.get("firstName").toString();
                         fname.setText(firstname);
                     }
-                    if (map.get("lame") != null) {
-                        LastName = map.get("LastName").toString();
+                    if (map.get("lastName") != null) {
+                        LastName = map.get("lastName").toString();
                         lname.setText(LastName);
                     }
                     if (map.get("username") != null) {
-                        Username = map.get("Username").toString();
+                        Username = map.get("username").toString();
                         username.setText(Username);
                     }
                     if (map.get("gender") != null) {
@@ -119,33 +122,29 @@ public class ProfileStud extends AppCompatActivity {
                         Dob = map.get("dob").toString();
                         dob.setText(Dob);
                     }
-                    if (map.get("gender") != null) {
-                        Gender = map.get("gender").toString();
-                        phone.setText(Gender);
-                    }
-                    if (map.get("email") != null) {
-                        email_id = map.get("email").toString();
-                        email.setText(email_id);
+                    if (map.get("phoneNo") != null) {
+                        Phone_no = map.get("phoneNo").toString();
+                        phone.setText(Phone_no);
                     }
                     if (map.get("email") != null) {
                         email_id = map.get("email").toString();
                         email.setText(email_id);
                     }
                     if (map.get("course") != null) {
-                        course_obtained = map.get("lang").toString();
+                        course_obtained = map.get("course").toString();
                         course.setText(course_obtained);
                     }
-                    if (map.get("school_clg_name") != null) {
-                        clg_school_name = map.get("school").toString();
+                    if (map.get("school_College_Name") != null) {
+                        clg_school_name = map.get("school_College_Name").toString();
                         sch_clg_name.setText(clg_school_name);
                     }
-                    if (map.get("pass") != null) {
-                        password = map.get("pass").toString();
+                    if (map.get("password") != null) {
+                        password = map.get("password").toString();
                         pass.setText(password);
                     }
                     if (map.get("profileImageUrl") != null) {
                         profilePic = map.get("profileImageUrl").toString();
-                        //Glide.with(getApplication()).load(profileImageUrl).into(profile);
+                        Glide.with(getApplication()).load(profilePic).into(profile);
                     }
                 }
             }
@@ -200,10 +199,10 @@ public class ProfileStud extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    /*Uri downloadUrl = taskSnapshot.getDowloadUrl();
+                                    Task<Uri> downloadUrl =  taskSnapshot.getStorage().getDownloadUrl();
                                     Map userInfo = new HashMap();
                                     userInfo.put("profileImageUrl", downloadUrl);
-                                    writerDatabase.updateChildren(userInfo);*/
+                                    studentDatabase.updateChildren(userInfo);
                     finish();
                     return;
                 }

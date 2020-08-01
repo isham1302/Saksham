@@ -1,4 +1,4 @@
-package com.example.saksham;
+package com.example.saksham.Student;
 
 import android.app.Application;
 import android.app.NotificationChannel;

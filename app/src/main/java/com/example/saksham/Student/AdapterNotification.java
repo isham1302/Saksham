@@ -1,4 +1,4 @@
-package com.example.saksham;
+package com.example.saksham.Student;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.saksham.R;
 
 import java.util.List;
 
@@ -46,9 +48,9 @@ public class AdapterNotification extends RecyclerView.Adapter<AdapterNotificatio
         TextView textView,txtView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView= itemView.findViewById(R.id.iv);
+           /* imageView= itemView.findViewById(R.id.iv);
             textView= itemView.findViewById(R.id.title_tv);
-            txtView= itemView.findViewById(R.id.descp_tv);
+            txtView= itemView.findViewById(R.id.descp_tv);*/
         }
     }
 }

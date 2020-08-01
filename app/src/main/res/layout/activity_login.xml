@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorPrimary"
-    tools:context=".Login">
+    tools:context=".Writer.Login">
 
     <com.smarteist.autoimageslider.SliderView
         android:id="@+id/imageSlider"

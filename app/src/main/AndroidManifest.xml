@@ -11,30 +11,31 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".Notification"
+        android:name=".Student.Notification"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListMatches"></activity>
-        <activity android:name=".ForgotPasswordStud" />
-        <activity android:name=".LoginStud" />
-        <activity android:name=".Login" />
-        <activity android:name=".RegistrationWriter" />
+        <activity android:name=".Writer.Chat.Chat"></activity>
+        <activity android:name=".Writer.ListMatches" />
+        <activity android:name=".Student.ForgotPasswordStud" />
+        <activity android:name=".Student.LoginStud" />
+        <activity android:name=".Writer.Login" />
+        <activity android:name=".Writer.RegistrationWriter" />
         <activity android:name=".PasswordChange" />
-        <activity android:name=".ForgotPassword" />
-        <activity android:name=".ContactUs" />
-        <activity android:name=".RateWriter" />
-        <activity android:name=".ProfileStud" />
+        <activity android:name=".Writer.ForgotPassword" />
+        <activity android:name=".Student.ContactUs" />
+        <activity android:name=".Student.RateWriter" />
+        <activity android:name=".Student.ProfileStud" />
         <activity android:name=".RequestWriter" />
-        <activity android:name=".HomeStud" />
-        <activity android:name=".ListNotification" />
-        <activity android:name=".MyProfile" />
-        <activity android:name=".RegisterStud" />
+        <activity android:name=".Student.HomeStud" />
+        <activity android:name=".Student.ListNotification" />
+        <activity android:name=".Writer.MyProfile" />
+        <activity android:name=".Student.RegisterStud" />
         <activity android:name=".RegistrationBtn" />
-        <activity android:name=".Home" />
+        <activity android:name=".Writer.Home" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,7 +44,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".NotificationReceiver" />
+        <receiver android:name=".Student.NotificationReceiver" />
     </application>
 
 </manifest>

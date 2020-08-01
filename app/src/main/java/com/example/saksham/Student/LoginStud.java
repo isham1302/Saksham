@@ -1,4 +1,4 @@
-package com.example.saksham;
+package com.example.saksham.Student;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -14,12 +14,16 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
-import com.basgeekball.awesomevalidation.utility.RegexTemplate;
+import com.example.saksham.ImageSliderAdapter;
+import com.example.saksham.ImageSliderModal;
+import com.example.saksham.R;
+import com.github.ybq.android.spinkit.style.CubeGrid;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -37,6 +41,7 @@ public class LoginStud extends AppCompatActivity {
     SliderView sliderView;
     List<ImageSliderModal> imageSliderModalList;
     AwesomeValidation awesomeValidation;
+    ProgressBar progressBar;
 
     FirebaseAuth auth;
     FirebaseAuth.AuthStateListener listener;
@@ -55,6 +60,11 @@ public class LoginStud extends AppCompatActivity {
         txt_fpass= findViewById(R.id.fpassword);
         imageSliderModalList= new ArrayList<>();
         sliderView= findViewById(R.id.imageSlider);
+        progressBar= findViewById(R.id.spin_kit);
+
+        CubeGrid cubeGrid= new CubeGrid();
+        progressBar.setIndeterminateDrawable(cubeGrid);
+        progressBar.setVisibility(View.INVISIBLE);
 
 
         awesomeValidation= new AwesomeValidation(ValidationStyle.BASIC);
@@ -94,12 +104,14 @@ public class LoginStud extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(!task.isSuccessful()){
+                                progressBar.setVisibility(View.INVISIBLE);
                                 Toast.makeText(LoginStud.this, "sign in error", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
 
                 }else {
+                    progressBar.setVisibility(View.INVISIBLE);
                     Toast.makeText(LoginStud.this, "Error occurred during login please check once again!!", Toast.LENGTH_SHORT).show();
                 }
 
@@ -109,14 +121,14 @@ public class LoginStud extends AppCompatActivity {
         txt_reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent regIntent= new Intent(LoginStud.this,RegisterStud.class);
+                Intent regIntent= new Intent(LoginStud.this, RegisterStud.class);
                 startActivity(regIntent);
             }
         });
         txt_fpass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(LoginStud.this,ForgotPasswordStud.class);
+                Intent intent= new Intent(LoginStud.this, ForgotPasswordStud.class);
                 startActivity(intent);
             }
         });

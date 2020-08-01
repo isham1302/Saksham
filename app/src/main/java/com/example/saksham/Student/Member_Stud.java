@@ -1,12 +1,10 @@
-package com.example.saksham;
+package com.example.saksham.Student;
 
 public class Member_Stud {
-     String FirstName,LastName,Username,Gender,dob,phoneNo,Email,School_College_Name,Course,Password,Type;
+     String FirstName,LastName,Username,Gender,dob,phoneNo,Email,School_College_Name,Course,Password;
 
-    public Member_Stud(String fname, String lname, String username, String gender, String dob, String phone, String email, String scho_clg, String course, String userType) {
-    }
 
-    public Member_Stud(String firstName, String lastName, String username, String gender, String dob, String phoneNo, String email, String school_College_Name, String course, String password,String Type) {
+    public Member_Stud(String firstName, String lastName, String username, String gender, String dob, String phoneNo, String email, String school_College_Name, String course, String password) {
         FirstName = firstName;
         LastName = lastName;
         Username = username;
@@ -17,7 +15,6 @@ public class Member_Stud {
         School_College_Name = school_College_Name;
         Course = course;
         Password = password;
-        this.Type= Type;
     }
 
     public String getFirstName() {
@@ -98,13 +95,5 @@ public class Member_Stud {
 
     public void setPassword(String password) {
         Password = password;
-    }
-
-    public String getType() {
-        return Type;
-    }
-
-    public void setType(String type) {
-        Type = type;
     }
 }

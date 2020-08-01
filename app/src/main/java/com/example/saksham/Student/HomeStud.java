@@ -1,8 +1,7 @@
-package com.example.saksham;
+package com.example.saksham.Student;
 
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,17 +12,15 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.example.saksham.MainAdapter;
+import com.example.saksham.R;
+import com.example.saksham.RequestWriter;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class HomeStud extends AppCompatActivity {
     EditText eFirstName, eLastName, eUserName, ePhoneNo, edit_email, edit_school, edit_course, ePassword, eCPassword;
@@ -35,7 +32,6 @@ public class HomeStud extends AppCompatActivity {
 
     String gender = "";
 
-    DatabaseReference reference;
     FirebaseAuth auth;
 
     String[] topic= {"Request Writer","My Profile","Notification","Rate Writer","Contact Us","Logout"};
@@ -70,60 +66,28 @@ public class HomeStud extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Toast.makeText(getApplicationContext(),"You Clicked"+topic[+i],Toast.LENGTH_SHORT).show();
                 if (topic[i].equals("Request Writer")){
-                    Intent requestWriter= new Intent(HomeStud.this,RequestWriter.class);
+                    Intent requestWriter= new Intent(HomeStud.this, RequestWriter.class);
                     startActivity(requestWriter);
                 }
                 if (topic[i].equals("My Profile")){
-                    reference= FirebaseDatabase.getInstance().getReference().child("Registration student").child("1");
-                    reference.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                           final String stud_firstName= snapshot.child("firstName").getValue().toString();
-                            final String stud_lastName= snapshot.child("lastName").getValue().toString();
-                            final String stud_username= snapshot.child("username").getValue().toString();
-                            final String stud_phoneNo= snapshot.child("phoneNo").getValue().toString();
-                            final String stud_email= snapshot.child("email").getValue().toString();
-                            final String stud_dob= snapshot.child("dob").getValue().toString();
-                            final String stud_gender= snapshot.child("gender").getValue().toString();
-                            final String stud_schoolCollegeName= snapshot.child("school_College_Name").getValue().toString();
-                            final String stud_course= snapshot.child("course").getValue().toString();
-                            final  String stud_pic= snapshot.child("profilePic").getValue().toString();
-                            Intent profileIntent= new Intent(HomeStud.this,ProfileStud.class);
-                           profileIntent.putExtra("firstName",stud_firstName);
-                            profileIntent.putExtra("lastName",stud_lastName);
-                            profileIntent.putExtra("username",stud_username);
-                            profileIntent.putExtra("phoneNo",stud_phoneNo);
-                            profileIntent.putExtra("email",stud_email);
-                            profileIntent.putExtra("dob",stud_dob);
-                            profileIntent.putExtra("gender",stud_gender);
-                            profileIntent.putExtra("school_College_Name",stud_schoolCollegeName);
-                            profileIntent.putExtra("course",stud_course);
-                            profileIntent.putExtra("profilePic",stud_pic);
-
-                            startActivity(profileIntent);
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-
+                    Toast.makeText(HomeStud.this, "My Profile", Toast.LENGTH_SHORT).show();
+                    Intent profileIntent = new Intent(HomeStud.this, ProfileStud.class);
+                    startActivity(profileIntent);
                     }
                 if (topic[i].equals("Notification")){
                     PopupNotification();
                 }
                 if (topic[i].equals("Rate Writer")){
-                    Intent rateWriter= new Intent(HomeStud.this,RateWriter.class);
+                    Intent rateWriter= new Intent(HomeStud.this, RateWriter.class);
                     startActivity(rateWriter);
                 }
                 if (topic[i].equals("Contact Us")){
-                    Intent contact= new Intent(HomeStud.this,ContactUs.class);
+                    Intent contact= new Intent(HomeStud.this, ContactUs.class);
                     startActivity(contact);
                 }
                 if (topic[i].equals("Logout")){
                     Toast.makeText(HomeStud.this, "Logout done successfully..", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(HomeStud.this,LoginStud.class));
+                    startActivity(new Intent(HomeStud.this, LoginStud.class));
                     auth.signOut();
                     finish();
                 }
@@ -134,7 +98,7 @@ public class HomeStud extends AppCompatActivity {
     private void PopupNotification() {
         Intent activityIntent= new Intent(HomeStud.this, ListNotification.class);
         PendingIntent contentIntent= PendingIntent.getActivity(this,0,activityIntent,0);
-        Intent broadcastIntent= new Intent(this,NotificationReceiver.class);
+        Intent broadcastIntent= new Intent(this, NotificationReceiver.class);
         broadcastIntent.putExtra("ToastMessage","This is message");
         PendingIntent actionIntent= PendingIntent.getBroadcast(this,0,broadcastIntent,PendingIntent.FLAG_UPDATE_CURRENT);
 

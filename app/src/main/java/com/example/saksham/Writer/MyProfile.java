@@ -1,4 +1,4 @@
-package com.example.saksham;
+package com.example.saksham.Writer;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,8 +18,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.example.saksham.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -116,15 +118,15 @@ public class MyProfile extends AppCompatActivity {
                 if (snapshot.exists() && snapshot.getChildrenCount() > 0) {
                     Map<String, Object> map = (Map<String, Object>) snapshot.getValue();
                     if (map.get("fname") != null) {
-                        firstname = map.get("firstname").toString();
+                        firstname = map.get("fname").toString();
                         fname.setText(firstname);
                     }
-                        if (map.get("lame") != null) {
-                            LastName = map.get("LastName").toString();
+                        if (map.get("lname") != null) {
+                            LastName = map.get("lname").toString();
                             lname.setText(LastName);
                         }
                             if (map.get("username") != null) {
-                                Username = map.get("Username").toString();
+                                Username = map.get("username").toString();
                                 username.setText(Username);
                             }
                                 if (map.get("gender") != null) {
@@ -135,20 +137,20 @@ public class MyProfile extends AppCompatActivity {
                                         Dob = map.get("dob").toString();
                                         dob.setText(Dob);
                                     }
-                                        if (map.get("gender") != null) {
-                                            Gender = map.get("gender").toString();
-                                            phone.setText(Gender);
+                                        if (map.get("phone") != null) {
+                                            Phone_no = map.get("phone").toString();
+                                            phone.setText(Phone_no);
                                         }
-                    if (map.get("email") != null) {
-                        email_id = map.get("email").toString();
-                        email.setText(email_id);
-                    }
                     if (map.get("email") != null) {
                         email_id = map.get("email").toString();
                         email.setText(email_id);
                     }
                     if (map.get("lang") != null) {
                         language = map.get("lang").toString();
+                        lang.setText(language);
+                    }
+                    if (map.get("language") != null) {
+                        language = map.get("language").toString();
                         lang.setText(language);
                     }
                     if (map.get("school") != null) {
@@ -173,7 +175,7 @@ public class MyProfile extends AppCompatActivity {
                     }
                     if (map.get("profileImageUrl") != null) {
                         profilePic = map.get("profileImageUrl").toString();
-                        //Glide.with(getApplication()).load(profileImageUrl).into(profile);
+                        Glide.with(getApplication()).load(profilePic).into(profile);
                     }
                 }
             }
@@ -222,7 +224,7 @@ public class MyProfile extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             ByteArrayOutputStream byteArrayOutputStream= new ByteArrayOutputStream();
-                            bitmap.compress(Bitmap.CompressFormat.PNG,20, byteArrayOutputStream);
+                            bitmap.compress(Bitmap.CompressFormat.JPEG,20, byteArrayOutputStream);
                             byte[] data= byteArrayOutputStream.toByteArray();
                             UploadTask uploadTask= filepath.putBytes(data);
                             uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -234,10 +236,10 @@ public class MyProfile extends AppCompatActivity {
                             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    /*Uri downloadUrl = taskSnapshot.getDowloadUrl();
+                                    Task<Uri> downloadUrl = taskSnapshot.getStorage().getDownloadUrl();
                                     Map userInfo = new HashMap();
-                                    userInfo.put("profileImageUrl", downloadUrl);
-                                    writerDatabase.updateChildren(userInfo);*/
+                                    userInfo.put("profileImageUrl", downloadUrl.toString());
+                                    writerDatabase.updateChildren(userInfo);
                                     finish();
                                     return;
                                 }

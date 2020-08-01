@@ -1,32 +1,26 @@
-package com.example.saksham;
-
-import android.Manifest;
-import android.app.PendingIntent;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Bundle;
-import android.telephony.SmsManager;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.widget.ListView;
-import android.widget.Toast;
+package com.example.saksham.Writer;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.telephony.SmsManager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.example.saksham.R;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,78 +32,74 @@ import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Home extends AppCompatActivity {
     private static final int SEND_SMS_PERMISSION_REQUEST_CODE = 101;
     private static final int REQUEST_CALL=1;
-    private NotificationManagerCompat notificationManager;
-    Toolbar toolbar;
 
-    private Adapter adapter[];
-    private arrayAdapter arrayAdapter;
+
+    private Cards cards_data[];
+    private arrayAdapter adapter;
     private int i;
 
-    FirebaseAuth firebaseAuth;
-    DatabaseReference userdb;
-
     SwipeFlingAdapterView flingContainer;
-
     ListView listView;
-    List<Adapter> row_items;
-     String currentUid;
+    List<Cards> rowItems;
+    Toolbar toolbar;
+
+    FirebaseAuth firebaseAuth;
+    String currentId;
+    DatabaseReference userDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        toolbar= findViewById(R.id.homeToolbar);
+        toolbar = findViewById(R.id.homeToolbar);
         setSupportActionBar(toolbar);
 
-        notificationManager= NotificationManagerCompat.from(this);
         firebaseAuth= FirebaseAuth.getInstance();
-        currentUid= firebaseAuth.getCurrentUser().getUid();
-        userdb= FirebaseDatabase.getInstance().getReference().child("Saksham");
-        checkUser();
+        userDB= FirebaseDatabase.getInstance().getReference().child("Saksham");
+        currentId= FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        row_items = new ArrayList<Adapter>();
+        getStudentData();
 
-        arrayAdapter = new arrayAdapter(this, R.layout.item, row_items );
-        flingContainer = findViewById(R.id.frame);
-        flingContainer.setAdapter(arrayAdapter);
+        rowItems = new ArrayList<Cards>();
+
+        adapter = new arrayAdapter(this, R.layout.item, rowItems );
+
+        flingContainer=findViewById(R.id.frame);
+        flingContainer.setAdapter(adapter);
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
             public void removeFirstObjectInAdapter() {
                 // this is the simplest way to delete an object from the Adapter (/AdapterView)
-                Log.d("LIST", "removed object!");
-                row_items.remove(0);
-                arrayAdapter.notifyDataSetChanged();
+                rowItems.remove(0);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onLeftCardExit(Object dataObject) {
-                Adapter obj= (Adapter)dataObject;
-               final String id= obj.getUserId();
-                userdb.child(userStudent).child(id).child("Connection").child("Reject").child(currentUid).setValue(true);
+               Cards obj= (Cards)dataObject;
+               String userId= obj.getUserId();
+               userDB.child("Student").child(userId).child("Connection").child("Reject").child(currentId).setValue(true);
                 Toast.makeText(Home.this, "Left", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
-                Adapter obj= (Adapter)dataObject;
-                String id= obj.getUserId();
-                userdb.child(userStudent).child(id).child("Connection").child("Accept").child(currentUid).setValue(true);
-                isConnectionMatch(id);
                 Toast.makeText(Home.this, "Right", Toast.LENGTH_SHORT).show();
+                Cards obj= (Cards)dataObject;
+                String userId= obj.getUserId();
+                isConnected(userId);
+                userDB.child("Student").child(userId).child("Connection").child("Accept").child(currentId).setValue(true);
             }
 
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
-                // Ask for more data here
             }
 
             @Override
             public void onScroll(float scrollProgressPercent) {
-
             }
         });
 
@@ -124,15 +114,54 @@ public class Home extends AppCompatActivity {
 
     }
 
-    private void isConnectionMatch(String id) {
-        DatabaseReference currentUserId= userdb.child(userStudent).child(currentUid).child("Connections").child("Accept").child(id);
+    private void isConnected(String userId) {
+        DatabaseReference currentUserId= userDB.child("Writer").child(currentId).child("Connection").child("Accept").child(userId);
         currentUserId.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
-                    Toast.makeText(Home.this, "Accepted...", Toast.LENGTH_SHORT).show();
-                    userdb.child("Student").child(snapshot.getKey()).child("Connection").child("Matches").child(currentUid).setValue(true);
+                    Toast.makeText(Home.this, "Accepted achieved!!", Toast.LENGTH_SHORT).show();
+                    String key= FirebaseDatabase.getInstance().getReference().child("Chat").push().getKey();
+
+                    userDB.child("Student").child(snapshot.getKey()).child("Connection").child("Matches").child(currentId).child("ChatId").setValue(key);
+                    userDB.child(currentId).child("Connection").child("Matches").child(snapshot.getKey()).child(currentId).child("ChatId").setValue(key);
+
                 }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void getStudentData(){
+        DatabaseReference studentReference= FirebaseDatabase.getInstance().getReference().child("Saksham").child("RequestWriter");
+
+        studentReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if (snapshot.exists()&& !snapshot.child("Connection").child("Reject").hasChild(currentId)  && !snapshot.child("Connection").child("Accept").hasChild(currentId)){
+                    Cards item= new Cards(snapshot.getKey(),snapshot.child("firstName").getValue().toString(),snapshot.child("lastName").getValue().toString(),snapshot.child("examName").getValue().toString(),snapshot.child("medPaper").getValue().toString(),snapshot.child("address").getValue().toString(),snapshot.child("school_clg_name").getValue().toString(),snapshot.child("course_name").getValue().toString());
+                    rowItems.add(item);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
             }
 
             @Override
@@ -158,7 +187,8 @@ public class Home extends AppCompatActivity {
                 return true;
             case R.id.item2:
                 Toast.makeText(this, "Notification", Toast.LENGTH_SHORT).show();
-                PopupNotification();
+                Intent notifyIntent= new Intent(Home.this, ListMatches.class);
+                startActivity(notifyIntent);
                 return true;
             case R.id.item3:
                 Toast.makeText(this, "Contact Us", Toast.LENGTH_SHORT).show();
@@ -166,14 +196,14 @@ public class Home extends AppCompatActivity {
             case R.id.item4:
                 Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
                 Toast.makeText(Home.this, "Logout done successfully..", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this,Login.class));
+                startActivity(new Intent(this, Login.class));
                 firebaseAuth.signOut();
                 finish();
                 return true;
             case R.id.subitem1:
                 Toast.makeText(getApplicationContext(), "Make a call", Toast.LENGTH_SHORT).show();
                 makePhoneCall();
-                    return true;
+                return true;
             case R.id.subitem2:
                 Toast.makeText(getApplicationContext(), "Text Us", Toast.LENGTH_SHORT).show();
                 textSMS();
@@ -200,33 +230,8 @@ public class Home extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-    private void PopupNotification() {
-        Intent activityIntent= new Intent(Home.this,ListMatches.class);
-
-        PendingIntent contentIntent= PendingIntent.getActivity(this,0,activityIntent,0);
-        Intent broadcastIntent= new Intent(this,NotificationReceiver.class);
-        broadcastIntent.putExtra("ToastMessage","This is message");
-        PendingIntent actionIntent= PendingIntent.getBroadcast(this,0,broadcastIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-
-        android.app.Notification notification= new NotificationCompat.Builder(this, Notification.CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_baseline_notifications_active_24)
-                .setContentTitle("This the new request")
-                .setContentText("Please check the details of examination informed by student")
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .setContentIntent(contentIntent)
-                .setAutoCancel(true)
-                .setOnlyAlertOnce(true)
-                .addAction(R.mipmap.ic_launcher,"Toast", actionIntent)
-                .build();
-        notificationManager.notify(1,notification);
-
-
-    }
-
     private void textSMS() {
-        if (ContextCompat.checkSelfPermission(Home.this,Manifest.permission.SEND_SMS)!= PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(Home.this, Manifest.permission.SEND_SMS)!= PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(Home.this, new String[]{Manifest.permission.SEND_SMS}, SEND_SMS_PERMISSION_REQUEST_CODE);
         }else {
             SmsManager smsManager= SmsManager.getDefault();
@@ -288,99 +293,5 @@ public class Home extends AppCompatActivity {
         return app_installed;
     }
 
-    private String userWriter;
-    private String userStudent;
-    public void checkUser(){
-        final FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference writerDB= FirebaseDatabase.getInstance().getReference().child("Saksham").child("Writer");
-        writerDB.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if (snapshot.getKey().equals(user.getUid())){
-                    userWriter="Writer";
-                    userStudent="Student";
-                    getMatch();
-                }
-            }
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        DatabaseReference studDB= FirebaseDatabase.getInstance().getReference().child("Saksham").child("Student");
-        studDB.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if (snapshot.getKey().equals(user.getUid())){
-                    userWriter="Writer";
-                    userStudent="Student";
-                }
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-    public void getMatch() {
-        DatabaseReference matchDB= FirebaseDatabase.getInstance().getReference().child("Saksham").child(userStudent);
-        matchDB.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if (snapshot.exists() && snapshot.child("Connection").child("Reject").hasChild(currentUid) && snapshot.child("Connection").child("Accept").hasChild(currentUid)){
-                   Adapter item= new Adapter(snapshot.getKey(),snapshot.child("fname").getValue().toString(),snapshot.child("lname").getValue().toString(),snapshot.child("examname").getValue().toString(),snapshot.child("medium_paper").getValue().toString(),snapshot.child("dateOfExam").getValue().toString(),snapshot.child("venu").getValue().toString(),snapshot.child("college_School_Name").getValue().toString(),snapshot.child("course").getValue().toString(),snapshot.child("profileImageUrl").getValue().toString());
-                    row_items.add(item);
-                    arrayAdapter.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-    }
 }
