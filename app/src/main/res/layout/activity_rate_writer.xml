@@ -26,14 +26,26 @@
         android:inputType="textPersonName"
         android:textColorHint="@android:color/black"
         android:textSize="18sp" />
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="Give stars to your writer"
-        android:layout_marginLeft="10dp"
-        android:textColor="@android:color/black"
-        android:layout_marginTop="30dp" />
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Give stars to your writer"
+            android:layout_marginLeft="10dp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="30dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rate_us"
+            android:textSize="18sp"
+            android:layout_marginLeft="15dp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="30dp" />
+    </LinearLayout>
 
         <RatingBar
             android:layout_width="wrap_content"

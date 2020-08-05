@@ -1,4 +1,4 @@
-package com.example.saksham.Writer;
+package com.example.saksham.Student;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 
 import com.example.saksham.R;
+import com.example.saksham.Writer.MatchObject;
+import com.example.saksham.Writer.MatchesAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,20 +21,19 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListMatches extends AppCompatActivity {
+public class ListMatchesStud extends AppCompatActivity {
 
     Toolbar toolbar;
     private RecyclerView recyclerView;
-   private  RecyclerView.Adapter mMatchesAdapter;
-   private  RecyclerView.LayoutManager mMatchesLayoutManager;
+    private  RecyclerView.Adapter mMatchesAdapter;
+    private  RecyclerView.LayoutManager mMatchesLayoutManager;
 
     private String CurrentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_matches);
-
+        setContentView(R.layout.activity_list_matches_stud);
         toolbar = findViewById(R.id.MatchToolbar);
         setSupportActionBar(toolbar);
 
@@ -42,16 +43,16 @@ public class ListMatches extends AppCompatActivity {
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setHasFixedSize(true);
 
-        mMatchesLayoutManager= new LinearLayoutManager(ListMatches.this);
+        mMatchesLayoutManager= new LinearLayoutManager(ListMatchesStud.this);
         recyclerView.setLayoutManager(mMatchesLayoutManager);
-        mMatchesAdapter= new MatchesAdapter(getDataSetMatches(),ListMatches.this);
+        mMatchesAdapter= new MatchesAdapter(getDataSetMatches(),ListMatchesStud.this);
         recyclerView.setAdapter(mMatchesAdapter);
 
         getUserMastchId();
     }
 
     private void getUserMastchId() {
-        DatabaseReference matchDB= FirebaseDatabase.getInstance().getReference().child("Saksham").child("Writer").child(CurrentUser).child("Connection").child("Matches");
+        DatabaseReference matchDB= FirebaseDatabase.getInstance().getReference().child("Saksham").child("Student").child(CurrentUser).child("Connection").child("Matches");
         matchDB.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -70,7 +71,7 @@ public class ListMatches extends AppCompatActivity {
     }
 
     private void FetchMatchInformation(String key) {
-        DatabaseReference userDB= FirebaseDatabase.getInstance().getReference().child("Saksham").child("Student").child(key);
+        DatabaseReference userDB= FirebaseDatabase.getInstance().getReference().child("Saksham").child("Writer").child(key);
         userDB.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -78,8 +79,8 @@ public class ListMatches extends AppCompatActivity {
                     String userId= snapshot.getKey();
                     String firstName= "";
                     String profileImageUrl="";
-                    if (snapshot.child("firstName").getValue() != null){
-                        firstName= snapshot.child("firstName").getValue().toString();
+                    if (snapshot.child("fname").getValue() != null){
+                        firstName= snapshot.child("fname").getValue().toString();
                     }
                     if (snapshot.child("profileImageUrl").getValue() != null){
                         profileImageUrl= snapshot.child("profileImageUrl").getValue().toString();
@@ -101,4 +102,5 @@ public class ListMatches extends AppCompatActivity {
     private List<MatchObject> getDataSetMatches() {
         return resultMatches;
     }
+
 }

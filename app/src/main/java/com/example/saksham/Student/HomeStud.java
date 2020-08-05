@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,22 +20,21 @@ import com.example.saksham.MainAdapter;
 import com.example.saksham.R;
 import com.example.saksham.RequestWriter;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 
 public class HomeStud extends AppCompatActivity {
     EditText eFirstName, eLastName, eUserName, ePhoneNo, edit_email, edit_school, edit_course, ePassword, eCPassword;
     TextView dob_txt;
     RadioButton male_btn, female_btn;
     GridView gridView;
-    ImageButton profilePic;
+    ImageView profilePic;
     private NotificationManagerCompat notificationManager;
 
     String gender = "";
 
     FirebaseAuth auth;
 
-    String[] topic= {"Request Writer","My Profile","Notification","Rate Writer","Contact Us","Logout"};
-    int[] topicImage={R.drawable.writer, R.drawable.profile, R.drawable.notification, R.drawable.rate, R.drawable.contact, R.drawable.logout};
+    String[] topic= {"Request Writer","My Profile","Notification","Rate Writer","Chatting","Contact Us","Logout"};
+    int[] topicImage={R.drawable.writer, R.drawable.profile, R.drawable.notification, R.drawable.rate,R.drawable.chat ,R.drawable.contact, R.drawable.logout};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +79,10 @@ public class HomeStud extends AppCompatActivity {
                 if (topic[i].equals("Rate Writer")){
                     Intent rateWriter= new Intent(HomeStud.this, RateWriter.class);
                     startActivity(rateWriter);
+                }
+                if (topic[i].equals("Chatting")){
+                    Intent chat= new Intent(HomeStud.this, ListMatchesStud.class);
+                    startActivity(chat);
                 }
                 if (topic[i].equals("Contact Us")){
                     Intent contact= new Intent(HomeStud.this, ContactUs.class);

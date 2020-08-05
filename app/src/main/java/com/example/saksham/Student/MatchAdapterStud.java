@@ -1,4 +1,4 @@
-package com.example.saksham.Writer;
+package com.example.saksham.Student;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,16 +10,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.saksham.R;
+import com.example.saksham.Writer.MatchObject;
+import com.example.saksham.Writer.MatchesViewHolder;
 
 import java.util.List;
 
-public class MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolder> {
+public class MatchAdapterStud extends RecyclerView.Adapter<MatchesViewHolder> {
     private List<MatchObject> matchesList;
     private Context context;
 
-    public MatchesAdapter(List<MatchObject> matchesList,Context context){
-        this.matchesList= matchesList;
-        this.context= context;
+    public MatchAdapterStud(List<MatchObject> matchesList, Context context) {
+        this.matchesList = matchesList;
+        this.context = context;
     }
 
     @NonNull
@@ -36,8 +38,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolder> {
     public void onBindViewHolder(@NonNull MatchesViewHolder holder, int position) {
         holder.mMatchId.setText(matchesList.get(position).getUserId());
         holder.mMatchName.setText(matchesList.get(position).getFirstName());
-       Glide.with(context).load(matchesList.get(position).getProfileImageUrl()).into(holder.mMatchImage);
-
+        Glide.with(context).load(matchesList.get(position).getProfileImageUrl()).into(holder.mMatchImage);
     }
 
     @Override

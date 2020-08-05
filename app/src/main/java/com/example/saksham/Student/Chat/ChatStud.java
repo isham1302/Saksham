@@ -1,4 +1,9 @@
-package com.example.saksham.Writer.Chat;
+package com.example.saksham.Student.Chat;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -6,12 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.saksham.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Chat extends AppCompatActivity {
+public class ChatStud extends AppCompatActivity {
 
     Toolbar toolbar;
 
@@ -51,7 +50,7 @@ public class Chat extends AppCompatActivity {
 
         CurrentUser= FirebaseAuth.getInstance().getCurrentUser().getUid();
         matchId=getIntent().getExtras().getString("matchId");
-        mDatabaseUser= FirebaseDatabase.getInstance().getReference().child("Saksham").child("Writer").child(CurrentUser).child("Connection").child("Matches").child(matchId).child("chatId");
+        mDatabaseUser= FirebaseDatabase.getInstance().getReference().child("Saksham").child("Student").child(CurrentUser).child("Connection").child("Matches").child(matchId).child("chatId");
         mDatabaseChat= FirebaseDatabase.getInstance().getReference().child("Saksham").child("Chat");
 
         getChatId();
@@ -62,9 +61,9 @@ public class Chat extends AppCompatActivity {
         recyclerView= findViewById(R.id.recyclerView);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setHasFixedSize(false);
-        mChatLayoutManager= new LinearLayoutManager(Chat.this);
+        mChatLayoutManager= new LinearLayoutManager(ChatStud.this);
         recyclerView.setLayoutManager(mChatLayoutManager);
-        mChatAdapter= new ChatAdapter(getDataSetChat(),Chat.this);
+        mChatAdapter= new ChaStudtAdapter(getDatasetChat(), ChatStud.this);
         recyclerView.setAdapter(mChatAdapter);
 
         mSendBtn.setOnClickListener(new View.OnClickListener() {
@@ -78,11 +77,11 @@ public class Chat extends AppCompatActivity {
     private void sendMessage() {
         String sendMessageText= mSendEditText.getText().toString().trim();
         if (!sendMessageText.isEmpty()){
-            DatabaseReference newMessageDb= mDatabaseChat.push();
+            DatabaseReference newMessageDB= mDatabaseChat.push();
             Map newMessage= new HashMap();
             newMessage.put("createdByUser",CurrentUser);
             newMessage.put("Text",sendMessageText);
-            newMessageDb.setValue(newMessage);
+            newMessageDB.setValue(newMessage);
         }
         mSendEditText.setText(null);
     }
@@ -122,12 +121,10 @@ public class Chat extends AppCompatActivity {
                         if (createdByUser.equals(CurrentUser)){
                             currentUserBoolean= true;
                         }
-                        ChatObject newMessage= new ChatObject(message,currentUserBoolean);
+                        ChatStudObject newMessage= new ChatStudObject(message,currentUserBoolean);
                         resultChat.add(newMessage);
                         mChatAdapter.notifyDataSetChanged();
                     }
-                }else{
-                    Toast.makeText(Chat.this, "Sorry something went wrong", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -146,8 +143,8 @@ public class Chat extends AppCompatActivity {
         });
     }
 
-    private ArrayList<ChatObject> resultChat= new ArrayList<ChatObject>();
-    private List<ChatObject> getDataSetChat() {
+    private ArrayList<ChatStudObject> resultChat= new ArrayList<ChatStudObject>();
+    private List<ChatStudObject> getDatasetChat() {
         return resultChat;
     }
 }

@@ -5,9 +5,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -20,6 +23,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.saksham.R;
+import com.example.saksham.Student.HomeStud;
+import com.example.saksham.Student.ListNotification;
+import com.example.saksham.Student.Notification;
+import com.example.saksham.Student.NotificationReceiver;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -46,6 +53,8 @@ public class Home extends AppCompatActivity {
     List<Cards> rowItems;
     Toolbar toolbar;
 
+    private NotificationManagerCompat notificationManager;
+
     FirebaseAuth firebaseAuth;
     String currentId;
     DatabaseReference userDB;
@@ -60,6 +69,7 @@ public class Home extends AppCompatActivity {
         firebaseAuth= FirebaseAuth.getInstance();
         userDB= FirebaseDatabase.getInstance().getReference().child("Saksham");
         currentId= FirebaseAuth.getInstance().getCurrentUser().getUid();
+        notificationManager= NotificationManagerCompat.from(this);
 
         getStudentData();
 
@@ -124,7 +134,7 @@ public class Home extends AppCompatActivity {
                     String key= FirebaseDatabase.getInstance().getReference().child("Chat").push().getKey();
 
                     userDB.child("Student").child(snapshot.getKey()).child("Connection").child("Matches").child(currentId).child("ChatId").setValue(key);
-                    userDB.child(currentId).child("Connection").child("Matches").child(snapshot.getKey()).child(currentId).child("ChatId").setValue(key);
+                    userDB.child("Writer").child(currentId).child("Connection").child("Matches").child(snapshot.getKey()).child("ChatId").setValue(key);
 
                 }
             }
@@ -187,8 +197,7 @@ public class Home extends AppCompatActivity {
                 return true;
             case R.id.item2:
                 Toast.makeText(this, "Notification", Toast.LENGTH_SHORT).show();
-                Intent notifyIntent= new Intent(Home.this, ListMatches.class);
-                startActivity(notifyIntent);
+                PopupNotification();
                 return true;
             case R.id.item3:
                 Toast.makeText(this, "Contact Us", Toast.LENGTH_SHORT).show();
@@ -291,6 +300,26 @@ public class Home extends AppCompatActivity {
             app_installed=false;
         }
         return app_installed;
+    }
+    private void PopupNotification() {
+        Intent activityIntent= new Intent(Home.this, ListMatches.class);
+        PendingIntent contentIntent= PendingIntent.getActivity(this,0,activityIntent,0);
+        Intent broadcastIntent= new Intent(this, NotificationReceiver.class);
+        broadcastIntent.putExtra("ToastMessage","This is message");
+        PendingIntent actionIntent= PendingIntent.getBroadcast(this,0,broadcastIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+        android.app.Notification notification= new NotificationCompat.Builder(this, Notification.CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_baseline_notifications_active_24)
+                .setContentTitle("This the new request")
+                .setContentText("Please check the details of examination informed by student")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setContentIntent(contentIntent)
+                .setAutoCancel(true)
+                .setOnlyAlertOnce(true)
+                .addAction(R.mipmap.ic_launcher,"Toast", actionIntent)
+                .build();
+        notificationManager.notify(1,notification);
     }
 
 

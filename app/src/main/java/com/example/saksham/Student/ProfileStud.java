@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.saksham.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -161,20 +162,22 @@ public class ProfileStud extends AppCompatActivity {
         Username = username.getText().toString().trim();
         Gender = gender.getText().toString().trim();
         Phone_no = phone.getText().toString().trim();
+        Dob= dob.getText().toString().trim();
         email_id = email.getText().toString().trim();
         course_obtained = course.getText().toString().trim();
         clg_school_name = sch_clg_name.getText().toString().trim();
         password = pass.getText().toString().trim();
 
         Map userInfo = new HashMap();
-        userInfo.put("fname", firstname);
-        userInfo.put("lname", LastName);
+        userInfo.put("firstName", firstname);
+        userInfo.put("lastName", LastName);
         userInfo.put("username", Username);
         userInfo.put("gender", Gender);
-        userInfo.put("phone", Phone_no);
+        userInfo.put("dob", Dob);
+        userInfo.put("phoneNo", Phone_no);
         userInfo.put("email", email_id);
         userInfo.put("course", course_obtained);
-        userInfo.put("school_clg_name", clg_school_name);
+        userInfo.put("school_College_Name", clg_school_name);
         userInfo.put("password", password);
         studentDatabase.updateChildren(userInfo);
 
@@ -199,12 +202,17 @@ public class ProfileStud extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    Task<Uri> downloadUrl =  taskSnapshot.getStorage().getDownloadUrl();
-                                    Map userInfo = new HashMap();
-                                    userInfo.put("profileImageUrl", downloadUrl);
-                                    studentDatabase.updateChildren(userInfo);
-                    finish();
-                    return;
+                    Task<Uri> downloadUrl = taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            Map userInfo = new HashMap();
+                            userInfo.put("profileImageUrl", task.getResult().toString());
+                            studentDatabase.updateChildren(userInfo);
+                            finish();
+                            return;
+
+                        }
+                    });
                 }
             });
         }else {

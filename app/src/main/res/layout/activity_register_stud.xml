@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
     <include layout="@layout/custom_toolbar"/>
-        <ImageButton
+        <ImageView
             android:id="@+id/profile_pic"
             android:layout_width="150dp"
             android:layout_height="150dp"

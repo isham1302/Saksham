@@ -18,13 +18,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Writer.Chat.Chat"></activity>
+        <activity android:name=".Student.ListMatchesStud"></activity>
+        <activity android:name=".Student.OTP" />
+        <activity android:name=".Writer.Chat.Chat" />
         <activity android:name=".Writer.ListMatches" />
         <activity android:name=".Student.ForgotPasswordStud" />
         <activity android:name=".Student.LoginStud" />
         <activity android:name=".Writer.Login" />
         <activity android:name=".Writer.RegistrationWriter" />
-        <activity android:name=".PasswordChange" />
+        <activity android:name=".Writer.PasswordChange" />
         <activity android:name=".Writer.ForgotPassword" />
         <activity android:name=".Student.ContactUs" />
         <activity android:name=".Student.RateWriter" />

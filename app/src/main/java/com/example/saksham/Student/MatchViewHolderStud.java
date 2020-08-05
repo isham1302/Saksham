@@ -1,4 +1,4 @@
-package com.example.saksham.Writer;
+package com.example.saksham.Student;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,13 +9,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.saksham.Writer.Chat.Chat;
 import com.example.saksham.R;
+import com.example.saksham.Student.Chat.ChatStud;
+import com.example.saksham.Writer.Chat.Chat;
 
-public class MatchesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class MatchViewHolderStud  extends RecyclerView.ViewHolder implements View.OnClickListener  {
     public TextView mMatchId,mMatchName;
     public ImageView mMatchImage;
-    public MatchesViewHolder(@NonNull View itemView) {
+
+    public MatchViewHolderStud(@NonNull View itemView) {
         super(itemView);
         itemView.setOnClickListener(this);
 
@@ -26,7 +28,7 @@ public class MatchesViewHolder extends RecyclerView.ViewHolder implements View.O
 
     @Override
     public void onClick(View view) {
-        Intent intent= new Intent(view.getContext(), Chat.class);
+        Intent intent= new Intent(view.getContext(), ChatStud.class);
         Bundle bundle= new Bundle();
         bundle.putString("matchId",mMatchId.getText().toString());
         intent.putExtras(bundle);

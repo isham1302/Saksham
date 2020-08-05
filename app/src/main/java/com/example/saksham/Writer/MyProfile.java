@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.saksham.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -65,7 +66,7 @@ public class MyProfile extends AppCompatActivity {
     DatabaseReference writerDatabase;
 
     Uri resultUri;
-    String userId, firstname, LastName, Username, Gender,Dob ,Phone_no, email_id, language, school_clg, underg, postg, current_status, password, profilePic;
+    String userId, firstname, LastName, Username, Gender,Dob ,Phone_no, email_id, language,school_clg, underg, postg, current_status, password, profilePic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,6 +192,7 @@ public class MyProfile extends AppCompatActivity {
                         LastName = lname.getText().toString().trim();
                         Username = username.getText().toString().trim();
                         Gender = gender.getText().toString().trim();
+                        Dob= dob.getText().toString().trim();
                         Phone_no = phone.getText().toString().trim();
                         email_id = email.getText().toString().trim();
                         language = lang.getText().toString().trim();
@@ -205,14 +207,15 @@ public class MyProfile extends AppCompatActivity {
                         userInfo.put("lname", LastName);
                         userInfo.put("username", Username);
                         userInfo.put("gender", Gender);
+                        userInfo.put("dob", Dob);
                         userInfo.put("phone", Phone_no);
                         userInfo.put("email", email_id);
                         userInfo.put("language", language);
-                        userInfo.put("stream", school_clg);
+                        userInfo.put("school", school_clg);
                         userInfo.put("ug", underg);
                         userInfo.put("pg", postg);
                         userInfo.put("work", current_status);
-                        userInfo.put("password", password);
+                        userInfo.put("pass", password);
                         writerDatabase.updateChildren(userInfo);
 
                         if (resultUri != null){
@@ -236,12 +239,16 @@ public class MyProfile extends AppCompatActivity {
                             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    Task<Uri> downloadUrl = taskSnapshot.getStorage().getDownloadUrl();
-                                    Map userInfo = new HashMap();
-                                    userInfo.put("profileImageUrl", downloadUrl.toString());
-                                    writerDatabase.updateChildren(userInfo);
-                                    finish();
-                                    return;
+                                    Task<Uri> downloadUrl = taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Uri> task) {
+                                            Map userInfo = new HashMap();
+                                            userInfo.put("profileImageUrl",task.getResult().toString());
+                                            writerDatabase.updateChildren(userInfo);
+                                            finish();
+                                            return;
+                                        }
+                                    });
                                 }
                             });
                         }else {

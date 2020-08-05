@@ -110,7 +110,7 @@ public class ListNotification extends AppCompatActivity {
                     String key= FirebaseDatabase.getInstance().getReference().child("Chat").push().getKey();
 
                     userDB.child("Writer").child(snapshot.getKey()).child("Connection").child("Matches").child(currentId).child("ChatId").setValue(key);
-                    userDB.child(currentId).child("Connection").child("Matches").child(snapshot.getKey()).child(currentId).child("ChatId").setValue(key);
+                    userDB.child("Student").child(currentId).child("Connection").child("Matches").child(snapshot.getKey()).child("ChatId").setValue(key);
 
                 }
             }

@@ -1,9 +1,11 @@
 package com.example.saksham.Student;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -11,12 +13,14 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -38,12 +42,14 @@ import java.util.Calendar;
 public class RegisterStud extends AppCompatActivity {
     Toolbar toolbar;
     TextView dob_txt;
-    ImageButton dob_btn,profilePicture;
+    ImageButton dob_btn;
+    ImageView profilePicture;
     Button btn_stud;
     EditText eFirstName, eLastName, eUserName, ePhoneNo, edit_email, edit_school, edit_course, ePassword, eCPassword;
     RadioButton male_btn, female_btn;
     String gender = "";
     ProgressBar progressBar;
+    Uri resultUri;
 
     Calendar c;
     DatePickerDialog pickerDialog;
@@ -123,6 +129,14 @@ public class RegisterStud extends AppCompatActivity {
                 pickerDialog.show();
             }
         });
+        profilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent,1);
+            }
+        });
         btn_stud.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -190,5 +204,16 @@ public class RegisterStud extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         auth.removeAuthStateListener(listener);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode== 1){
+            if (resultCode== Activity.RESULT_OK){
+                Uri imageUri= data.getData();
+                profilePicture.setImageURI(imageUri);
+            }
+        }
     }
 }

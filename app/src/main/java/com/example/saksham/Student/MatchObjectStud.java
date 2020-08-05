@@ -1,9 +1,9 @@
-package com.example.saksham.Writer;
+package com.example.saksham.Student;
 
-public class MatchObject {
+public class MatchObjectStud {
     String userId, firstName, profileImageUrl;
 
-    public MatchObject(String userId, String firstName, String profileImageUrl) {
+    public MatchObjectStud(String userId, String firstName, String profileImageUrl) {
         this.userId = userId;
         this.firstName = firstName;
         this.profileImageUrl = profileImageUrl;
