@@ -10,8 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.saksham.R;
-import com.example.saksham.Student.Chat.ChatStud;
-import com.example.saksham.Writer.Chat.Chat;
+import com.example.saksham.Student.ChatStud.ChatStud;
 
 public class MatchViewHolderStud  extends RecyclerView.ViewHolder implements View.OnClickListener  {
     public TextView mMatchId,mMatchName;
@@ -30,7 +29,7 @@ public class MatchViewHolderStud  extends RecyclerView.ViewHolder implements Vie
     public void onClick(View view) {
         Intent intent= new Intent(view.getContext(), ChatStud.class);
         Bundle bundle= new Bundle();
-        bundle.putString("matchId",mMatchId.getText().toString());
+        bundle.putString("matchStudId",mMatchId.getText().toString());
         intent.putExtras(bundle);
         view.getContext().startActivity(intent);
     }

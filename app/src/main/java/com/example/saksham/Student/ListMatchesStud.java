@@ -45,7 +45,7 @@ public class ListMatchesStud extends AppCompatActivity {
 
         mMatchesLayoutManager= new LinearLayoutManager(ListMatchesStud.this);
         recyclerView.setLayoutManager(mMatchesLayoutManager);
-        mMatchesAdapter= new MatchesAdapter(getDataSetMatches(),ListMatchesStud.this);
+        mMatchesAdapter= new MatchAdapterStud(getDataSetMatches(),ListMatchesStud.this);
         recyclerView.setAdapter(mMatchesAdapter);
 
         getUserMastchId();
@@ -85,7 +85,7 @@ public class ListMatchesStud extends AppCompatActivity {
                     if (snapshot.child("profileImageUrl").getValue() != null){
                         profileImageUrl= snapshot.child("profileImageUrl").getValue().toString();
                     }
-                    MatchObject obj= new MatchObject(userId,firstName,profileImageUrl);
+                    MatchObjectStud obj= new MatchObjectStud(userId,firstName,profileImageUrl);
                     resultMatches.add(obj);
                     mMatchesAdapter.notifyDataSetChanged();
                 }
@@ -98,8 +98,8 @@ public class ListMatchesStud extends AppCompatActivity {
         });
     }
 
-    private ArrayList<MatchObject> resultMatches= new ArrayList<MatchObject>();
-    private List<MatchObject> getDataSetMatches() {
+    private ArrayList<MatchObjectStud> resultMatches= new ArrayList<MatchObjectStud>();
+    private List<MatchObjectStud> getDataSetMatches() {
         return resultMatches;
     }
 

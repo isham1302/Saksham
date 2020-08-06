@@ -21,6 +21,7 @@
         <activity android:name=".Student.ListMatchesStud"></activity>
         <activity android:name=".Student.OTP" />
         <activity android:name=".Writer.Chat.Chat" />
+        <activity android:name=".Student.ChatStud.ChatStud"/>
         <activity android:name=".Writer.ListMatches" />
         <activity android:name=".Student.ForgotPasswordStud" />
         <activity android:name=".Student.LoginStud" />
