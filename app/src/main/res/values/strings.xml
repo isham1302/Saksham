@@ -52,5 +52,6 @@
         <item>MCOM</item>
         <item>MTECH</item>
     </string-array>
+    <string name="title_activity_map_w">Map</string>
 
 </resources>

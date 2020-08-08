@@ -23,8 +23,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.saksham.R;
-import com.example.saksham.Student.HomeStud;
-import com.example.saksham.Student.ListNotification;
 import com.example.saksham.Student.Notification;
 import com.example.saksham.Student.NotificationReceiver;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,7 +40,6 @@ import java.util.List;
 public class Home extends AppCompatActivity {
     private static final int SEND_SMS_PERMISSION_REQUEST_CODE = 101;
     private static final int REQUEST_CALL=1;
-
 
     private Cards cards_data[];
     private arrayAdapter adapter;
@@ -199,6 +196,11 @@ public class Home extends AppCompatActivity {
                 Toast.makeText(this, "Notification", Toast.LENGTH_SHORT).show();
                 PopupNotification();
                 return true;
+            case R.id.map_item:
+                Toast.makeText(this, "Location", Toast.LENGTH_SHORT).show();
+                Intent mapIntent = new Intent(Home.this, MapW.class);
+                startActivity(mapIntent);
+                return true;
             case R.id.item3:
                 Toast.makeText(this, "Contact Us", Toast.LENGTH_SHORT).show();
                 return true;
@@ -239,6 +241,7 @@ public class Home extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
     private void textSMS() {
         if (ContextCompat.checkSelfPermission(Home.this, Manifest.permission.SEND_SMS)!= PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(Home.this, new String[]{Manifest.permission.SEND_SMS}, SEND_SMS_PERMISSION_REQUEST_CODE);
@@ -321,6 +324,5 @@ public class Home extends AppCompatActivity {
                 .build();
         notificationManager.notify(1,notification);
     }
-
 
 }

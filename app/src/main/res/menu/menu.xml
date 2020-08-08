@@ -10,6 +10,10 @@
         android:title="Notifications"
         app:showAsAction="never" />
     <item
+        android:id="@+id/map_item"
+        android:title="Location"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/item3"
         android:title="Contact Us"
         app:showAsAction="never">
