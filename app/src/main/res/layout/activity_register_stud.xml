@@ -221,7 +221,7 @@
             android:layout_marginLeft="10dp"
             android:text="Password:"
             android:textColor="@android:color/black"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="20dp" />
         <EditText
             android:layout_width="300dp"
             android:layout_height="50dp"
@@ -255,16 +255,15 @@
             android:textColorHint="@android:color/black"
             android:textSize="18sp" />
         <Button
-            android:layout_width="150dp"
+            android:layout_width="100dp"
             android:layout_height="45dp"
             android:layout_marginTop="30dp"
             android:id="@+id/register_stud"
             android:background="@color/colorPrimary"
-            android:gravity="center_horizontal|center_vertical"
+            android:layout_gravity="center"
             android:text="Register"
-            android:layout_marginLeft="105dp"
             android:textColor="#ffffff"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
         <com.github.ybq.android.spinkit.SpinKitView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/spin_kit"

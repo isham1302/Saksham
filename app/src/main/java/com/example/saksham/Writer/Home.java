@@ -247,7 +247,7 @@ public class Home extends AppCompatActivity {
             ActivityCompat.requestPermissions(Home.this, new String[]{Manifest.permission.SEND_SMS}, SEND_SMS_PERMISSION_REQUEST_CODE);
         }else {
             SmsManager smsManager= SmsManager.getDefault();
-            smsManager.sendTextMessage("9723555107",null,"Hi!! How may I help You",null,null);
+            smsManager.sendTextMessage("8849418665",null,"Hi!! How may I help You",null,null);
         }
     }
 
@@ -256,7 +256,7 @@ public class Home extends AppCompatActivity {
             ActivityCompat.requestPermissions(Home.this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
         }else {
             Intent callIntent = new Intent(Intent.ACTION_CALL);
-            callIntent.setData(Uri.parse("tel:9723555107"));
+            callIntent.setData(Uri.parse("tel:8849418665"));
             startActivity(callIntent);
         }
     }

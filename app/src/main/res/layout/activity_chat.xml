@@ -42,7 +42,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="#ffffff"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorAccent"
             android:id="@+id/send"/>
     </LinearLayout>
 

@@ -4,16 +4,27 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.saksham.R;
+import com.example.saksham.Writer.Home;
+import com.example.saksham.Writer.MyProfile;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -38,7 +49,8 @@ public class Chat extends AppCompatActivity {
     EditText mSendEditText;
     Button mSendBtn;
 
-    private String CurrentUser,matchId, chatId;
+    private String CurrentUser, matchId, chatId;
+    private static final int REQUEST_CALL = 1;
 
     DatabaseReference mDatabaseUser, mDatabaseChat;
 
@@ -49,22 +61,22 @@ public class Chat extends AppCompatActivity {
         toolbar = findViewById(R.id.ChatToolbar);
         setSupportActionBar(toolbar);
 
-        CurrentUser= FirebaseAuth.getInstance().getCurrentUser().getUid();
-        matchId=getIntent().getExtras().getString("matchId");
-        mDatabaseUser= FirebaseDatabase.getInstance().getReference().child("Saksham").child("Writer").child(CurrentUser).child("Connection").child("Matches").child(matchId).child("ChatId");
-        mDatabaseChat= FirebaseDatabase.getInstance().getReference().child("Saksham").child("Chat");
+        CurrentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        matchId = getIntent().getExtras().getString("matchId");
+        mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Saksham").child("Writer").child(CurrentUser).child("Connection").child("Matches").child(matchId).child("ChatId");
+        mDatabaseChat = FirebaseDatabase.getInstance().getReference().child("Saksham").child("Chat");
 
         getChatId();
 
-        mSendEditText= findViewById(R.id.msg);
-        mSendBtn= findViewById(R.id.send);
+        mSendEditText = findViewById(R.id.msg);
+        mSendBtn = findViewById(R.id.send);
 
-        recyclerView= findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setHasFixedSize(false);
-        mChatLayoutManager= new LinearLayoutManager(Chat.this);
+        mChatLayoutManager = new LinearLayoutManager(Chat.this);
         recyclerView.setLayoutManager(mChatLayoutManager);
-        mChatAdapter= new ChatAdapter(getDataSetChat(),Chat.this);
+        mChatAdapter = new ChatAdapter(getDataSetChat(), Chat.this);
         recyclerView.setAdapter(mChatAdapter);
 
         mSendBtn.setOnClickListener(new View.OnClickListener() {
@@ -76,25 +88,26 @@ public class Chat extends AppCompatActivity {
     }
 
     private void sendMessage() {
-        String sendMessageText= mSendEditText.getText().toString().trim();
-        if (!sendMessageText.isEmpty()){
-            DatabaseReference newMessageDb= mDatabaseChat.push();
-            Map newMessage= new HashMap();
-            newMessage.put("createdByUser",CurrentUser);
-            newMessage.put("Text",sendMessageText);
+        String sendMessageText = mSendEditText.getText().toString().trim();
+        if (!sendMessageText.isEmpty()) {
+            DatabaseReference newMessageDb = mDatabaseChat.push();
+            Map newMessage = new HashMap();
+            newMessage.put("createdByUser", CurrentUser);
+            newMessage.put("Text", sendMessageText);
             newMessageDb.setValue(newMessage);
         }
         mSendEditText.setText(null);
     }
-    private void getChatId(){
+
+    private void getChatId() {
         mDatabaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                 if (snapshot.exists()){
-                     chatId= snapshot.getValue().toString();
-                     mDatabaseChat= mDatabaseChat.child(chatId);
-                     getChatMessages();
-                 }
+                if (snapshot.exists()) {
+                    chatId = snapshot.getValue().toString();
+                    mDatabaseChat = mDatabaseChat.child(chatId);
+                    getChatMessages();
+                }
             }
 
             @Override
@@ -108,25 +121,25 @@ public class Chat extends AppCompatActivity {
         mDatabaseChat.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if (snapshot.exists()){
-                    String  message= null;
-                    String createdByUser= null;
-                    if (snapshot.child("Text").getValue() != null){
-                        message= snapshot.child("Text").getValue().toString().trim();
+                if (snapshot.exists()) {
+                    String message = null;
+                    String createdByUser = null;
+                    if (snapshot.child("Text").getValue() != null) {
+                        message = snapshot.child("Text").getValue().toString().trim();
                     }
-                    if (snapshot.child("createdByUser").getValue() != null){
-                        createdByUser= snapshot.child("createdByUser").getValue().toString().trim();
+                    if (snapshot.child("createdByUser").getValue() != null) {
+                        createdByUser = snapshot.child("createdByUser").getValue().toString().trim();
                     }
-                    if (message !=null && createdByUser != null){
-                        Boolean currentUserBoolean= false;
-                        if (createdByUser.equals(CurrentUser)){
-                            currentUserBoolean= true;
+                    if (message != null && createdByUser != null) {
+                        Boolean currentUserBoolean = false;
+                        if (createdByUser.equals(CurrentUser)) {
+                            currentUserBoolean = true;
                         }
-                        ChatObject newMessage= new ChatObject(message,currentUserBoolean);
+                        ChatObject newMessage = new ChatObject(message, currentUserBoolean);
                         resultChat.add(newMessage);
                         mChatAdapter.notifyDataSetChanged();
                     }
-                }else{
+                } else {
                     Toast.makeText(Chat.this, "Sorry something went wrong", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -134,20 +147,25 @@ public class Chat extends AppCompatActivity {
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
             }
+
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
             }
+
             @Override
             public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
     }
 
-    private ArrayList<ChatObject> resultChat= new ArrayList<ChatObject>();
+    private ArrayList<ChatObject> resultChat = new ArrayList<ChatObject>();
+
     private List<ChatObject> getDataSetChat() {
         return resultChat;
     }
+
 }

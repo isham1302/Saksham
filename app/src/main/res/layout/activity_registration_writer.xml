@@ -118,7 +118,7 @@
                 android:layout_marginLeft="10dp"
                 android:text="Date of Birth:"
                 android:textColor="@android:color/black"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="25dp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -126,7 +126,7 @@
                 android:layout_marginLeft="20dp"
                 android:id="@+id/dob"
                 android:textColor="@android:color/black"
-                android:layout_marginTop="30dp" />
+                android:layout_marginTop="25dp" />
         </LinearLayout>
         <ImageButton
             android:layout_width="80dp"
@@ -244,7 +244,7 @@
                 android:layout_marginLeft="10dp"
                 android:text="Stream in Secondary Education:"
                 android:textColor="@android:color/black"
-                android:layout_marginTop="15dp" />
+                android:layout_marginTop="20dp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -252,7 +252,7 @@
                 android:id="@+id/spin_school"
                 android:layout_marginLeft="10dp"
                 android:textColor="@android:color/black"
-                android:layout_marginTop="15dp" />
+                android:layout_marginTop="20dp" />
         </LinearLayout>
         <Spinner
             android:layout_width="115dp"
@@ -349,7 +349,7 @@
             android:layout_marginLeft="10dp"
             android:text="Password:"
             android:textColor="@android:color/black"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="20dp" />
         <EditText
             android:layout_width="300dp"
             android:layout_height="50dp"
@@ -383,16 +383,15 @@
             android:textColorHint="@android:color/black"
             android:textSize="18sp" />
         <Button
-            android:layout_width="150dp"
+            android:layout_width="100dp"
             android:layout_height="45dp"
             android:layout_marginTop="30dp"
             android:id="@+id/register_writer"
             android:background="@color/colorPrimary"
-            android:gravity="center_horizontal|center_vertical"
+            android:layout_gravity="center"
             android:text="Register"
-            android:layout_marginLeft="105dp"
             android:textColor="#ffffff"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
         <com.github.ybq.android.spinkit.SpinKitView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/spin_kit"

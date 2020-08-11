@@ -53,7 +53,7 @@ public class ContactUs extends AppCompatActivity {
             ActivityCompat.requestPermissions(ContactUs.this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
         } else {
             Intent callIntent = new Intent(Intent.ACTION_CALL);
-            callIntent.setData(Uri.parse("tel:9723555107"));
+            callIntent.setData(Uri.parse("tel:8849418665"));
             startActivity(callIntent);
 
         }
